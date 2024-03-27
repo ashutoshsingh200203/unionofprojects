@@ -1,0 +1,52 @@
+body{
+   
+    background-color: #e9c46a;
+    text-align: center;
+}
+
+.container{
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.ttt{
+  height: 60vmin;
+  width: 60vmin ;
+}
+
+.cell{
+   background-color:#2a9d8f;
+   height:18vmin;
+   width: 18vmin;
+   margin-bottom: 15px;
+   margin-right: 5px;
+   font-size: 40px;
+}
+
+.reset{
+    height: 35px;
+    width: 70px;
+    margin-top: 20px;
+    background-color:antiquewhite;
+    font-size: 20px;
+}
+
+.submit{
+    height: 35px;
+    width: 60px;
+    background-color: antiquewhite;
+    margin-left: 40px;
+}
+
+.hide{
+    display: none ;
+}
+
+#mess{
+    font-size: 30px;
+}
+
+

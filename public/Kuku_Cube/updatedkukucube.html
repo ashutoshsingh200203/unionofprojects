@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kukucubegame</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+        }
+
+        td {
+            border: 1px solid white;
+            padding: 25px;
+            background-color: brown;
+            border-radius: 8px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-left: 500px;
+            margin-top: 10px;
+        }
+
+        #timex {
+            text-align: center;
+            background-color: chocolate;
+            width: 10%;
+            margin-left: 500px;
+            color: white;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        #counter{
+            display: inline-block;
+        }
+
+        h2 {
+            text-align: center;
+
+        }
+    </style>
+
+</head>
+
+<body onload="box()">
+    <h2>Ashutoshsingh Tomar 24DEV089</h2>
+    <p id="counter"></p>
+    <p id="timex"></p>
+    <div class="container">
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <script>
+        let colvar1 = Math.floor(Math.random() * (10000 - 1000)) + 1000;
+        let colvar2 = Math.floor(Math.random() * (10000 - 1000)) + 1000;
+        let score = 1;
+        let count = 11;
+        const timer = setInterval(function () {
+            count--;
+            // console.log(count);
+            document.getElementById("timex").innerHTML = `Time Left : ${count - 1}`
+            if (count === 0) {
+                clearInterval(timer);
+                console.log("Time's up!");
+                document.getElementsByTagName("body")[0].innerHTML = `<h2
+                style="margin:300px 0 0 500px;">Score is : ${score}
+                    <h2>`
+
+
+            }
+        }, 1000);
+
+        document.getElementById(timer)
+        function box() {
+            let colvar1 = Math.floor(Math.random() * (10000 - 1000)) + 1000;
+            let colvar2 = Math.floor(Math.random() * (10000 - 1000)) + 1000;
+            table = document.getElementsByTagName("table");
+            row = table[0].getElementsByTagName("tr");
+            td = table[0].getElementsByTagName("td");
+            random = Math.floor(Math.random() * td.length);
+            for (i = 0; i < td.length; i++) {
+                if (i === random) {
+                    td[i].style.backgroundColor = `#ff${colvar1}`;
+                }
+                else {
+
+                    td[i].style.backgroundColor = `#ff${colvar2}`;
+                    td[i].removeEventListener('click', caller)
+                }
+            }
+            td[random].addEventListener("click", caller);
+            document.getElementById("counter").innerHTML = "Score :" + score;
+
+        }
+
+        function caller() {
+            addrow();
+            addcolumn();
+            box();
+            score++;
+        }
+        function addrow() {
+            table = document.getElementsByTagName("table");
+            row = table[0].getElementsByTagName("tr");
+            td = row[0].getElementsByTagName("td");
+            console.log(td.length);
+            if(td.length <= 8) {
+            table[0].appendChild(document.createElement("tr"));
+            for (i = 0; i < td.length; i++) {
+                table[0].lastChild.appendChild(document.createElement("td"));
+            }}
+        }
+
+        function addcolumn() {
+            table = document.getElementsByTagName("table");
+            rowcount = table[0].getElementsByTagName("tr");
+            td = rowcount[0].getElementsByTagName("td");
+           if(td.length <= 8)
+           {
+            for (let i = 0; i < rowcount.length; i++) {
+
+                rowcount[i].appendChild(document.createElement("td"));
+            }}
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            margin: 100px 10px 15px 500px;
+            width: fit-content;
+            border: 1px solid rgb(255, 255, 255,0.5);
+            padding: 20px;
+            border-radius: 20px;
+            height: 170px;
+        }
+        input{
+            width: 220px;
+            height: 30px;
+            border-radius: 10px;
+            border: 1px solid  rgb(15, 14, 33);
+            background-color: rgb(45, 45, 50);
+            color: white;
+            text-align: center;
+            font-size: 15px;
+        }
+        body{
+            background-color: rgb(15, 14, 33);
+        }
+        .login{
+            background-color: aquamarine;
+            border: 1px solid aquamarine;
+            color: rgb(49, 49, 57);
+        }
+        td{
+            padding: 10px;
+        }
+        table{
+            margin: auto;
+            
+        }
+        .login:hover{
+            background-color: green;
+        }
+        #error{
+        color: red;
+        font-size: 12px;
+        margin-left: 20px;
+      }
+      .already{
+            text-align: center;
+            color: aliceblue;
+            font-size: 13px;
+        }
+        a{
+            text-decoration: none;
+            color: brown;
+        }
+
+        .home
+        {
+            text-align: center;
+            color: aliceblue;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form  id="loginForm">
+        <h2 style="text-align: center; color: aliceblue;">Ashutoshsingh Tomar DEV089</h2>
+        <div class="container">
+            <table>
+                <tr>
+                    <td><input type="text" id="loginmail" name="loginmail" placeholder="Enter your email"></td>
+                </tr>
+                <tr>
+                    <td> <input type="password" id="loginpass" name="loginpass" placeholder="Enter Password"></td>
+                </tr>
+                <tr>
+                    <td><input type="button"  class="login" value="Login" onclick="handleLogin()"></td>
+                </tr>
+            </table>
+            <div class="passE">
+                <span id="error"></span>
+            </div>
+        </div>
+        
+    </form>
+    <div class="already">Can't remember ? <a href="/forgot">Forgot Password</a></div>
+    <div class="already">New User ? <a href="/">Register</a> now</div>
+    <div id="home"></div>
+
+    <script>
+        async function  handleLogin()
+        {
+                       let loginpass = document.getElementById('loginpass');
+                       let loginmail = document.getElementById('loginmail');
+
+                            let formdata = document.getElementById('loginForm')
+                            const details = new FormData(formdata);
+                            const params = new URLSearchParams(details);
+                            const logindata = await new Response(params).text();
+
+                            let data = await fetch("http://localhost:5900/login", {
+
+                                method: "POST",
+                                headers: {
+                                    "Content-type": 'application/x-www-form-urlencoded'
+                                },
+                                body: logindata
+                            })
+                            let final = await data.json();
+                            document.getElementById('error').innerHTML = `${final.msg}`
+                            if(final.token)
+                            {
+                                document.getElementById('home').innerHTML = `<a href='/home'>Go to dashboard</a>`
+                            }
+                            console.log(final);
+                    
+        }
+    </script>
+</body>
+</html>

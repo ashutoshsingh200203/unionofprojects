@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            margin: 100px 10px 50px 500px;
+            width: fit-content;
+            border: 1px solid rgb(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 20px;
+            height: 230px;
+        }
+
+        input {
+            width: 220px;
+            height: 30px;
+            border-radius: 10px;
+            border: 1px solid rgb(15, 14, 33);
+            background-color: rgb(45, 45, 50);
+            color: white;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        body {
+            background-color: rgb(15, 14, 33);
+        }
+
+        .submit {
+            background-color: aquamarine;
+            border: 1px solid aquamarine;
+            color: rgb(49, 49, 57);
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        table {
+            margin: auto;
+
+        }
+
+        .submit:hover {
+            background-color: green;
+        }
+
+        #thanks {
+            text-align: center;
+            color: azure;
+        }
+
+        a {
+            text-decoration: none;
+            color: brown;
+        }
+
+        .already {
+            text-align: center;
+            color: aliceblue;
+            font-size: 13px;
+            margin-top: -30px;
+        }
+
+        .error {
+            color: red;
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="text-align: center; color: aliceblue; margin-top: 20px;">Ashutoshsingh Tomar DEV089</h2>
+    <form id="regForm">
+
+        <div class="container">
+            <table>
+                <tr>
+                    <td> <input type="text" id="fname" name="fname" placeholder="First Name"></td>
+                    <td><span class="error" id="fnameE"></span></td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="lname" name="lname" placeholder="Last Name"></td>
+                    <td> <span class="error" id="lnameE"></span></td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="email" name="email" placeholder="Email id"></td>
+                    <td><span class="error" id="emailE"></span></td>
+                </tr>
+                <tr>
+                    <td> <input type="button" value="Create my Account" class="submit" onclick="handleSubmit()"></td>
+                </tr>
+            </table>
+        </div>
+
+    </form>
+    <div class="already">Already registered ? Please <a href="http://localhost:5900/login">Login</a></div>
+    <div id="thanks"></div>
+
+
+    <script>
+        async function handleSubmit() {
+            let isValid = true;
+            let inputs = document.getElementsByTagName('input')
+            console.log(inputs)
+
+            console.log(inputs[1].id === 'fname')
+
+            for (let i = 0; i < 3; i++) {
+                if (inputs[i].id === 'fname') {
+                    if (inputs[i].value === "") {
+                        document.getElementById('fnameE').innerHTML = "*fill values"
+                        isValid = false
+                    }
+                }
+                if (inputs[i].id === 'lname') {
+                    if (inputs[i].value === "") {
+                        document.getElementById('lnameE').innerHTML = "*fill values"
+                        isValid = false
+                    }
+                }
+                if (inputs[i].id === 'email') {
+                    if (inputs[i].value === "") {
+                        document.getElementById('emailE').innerHTML = "*fill values"
+                        isValid = false
+                    }
+                    if(!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/.test(inputs[i].value))
+                    {
+                        document.getElementById('emailE').innerHTML = '* enter valid emailId'
+                        isValid = false ;
+                    }
+                }
+                 console.log(isValid)
+            }
+            if (isValid) {
+
+                let formdata = document.getElementById('regForm')
+                const details = new FormData(formdata);
+                const params = new URLSearchParams(details);
+                const logindata = await new Response(params).text();
+                console.log('hello2')
+                console.log(logindata)
+
+                let data = await fetch("http://localhost:5900/save", {
+
+                    method: "POST",
+                    headers: {
+                        "Content-type": 'application/x-www-form-urlencoded'
+                    },
+                    body: logindata
+                })
+                let final = await data.json();
+                document.getElementById('thanks').innerHTML = `<h2>Thanks for the Registration</h2>
+            <div>Click this <a href='http://localhost:5900/pass?id=${final.insertedId}&accesskey=${final.accesskey}&salt=${final.salt}'>http://localhost:5900/pass?id=${final.insertedId}&accesskey=${final.accesskey}&salt=${final.salt}</a> for the verification </div>`
+
+            }
+        }
+    </script>
+</body>
+
+</html>
