@@ -7,11 +7,13 @@ const jwt = require('jsonwebtoken');
 const cookieparser = require('cookie-parser');
 require('dotenv').config();
 const login = require('./src/routes/auth')
+const jstasks = require('./src/routes/jstask')
 
 app.use(cookieparser())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/",login)
+app.use("/jstasks",jstasks)
 
 app.set('view engine', 'ejs');
 
