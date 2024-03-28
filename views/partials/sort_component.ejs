@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hello{
+            margin-bottom: 25px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="buttons">
+        <a href="?page=1&sort=asc"><input type="button" value="ASC"></a>
+        <a href="?page=1&sort=desc"><input type="button" value="DESC"></a>
+        <select name="" id=""></select>
+    </div> -->
+    <form action="?page=1" method="get" class="hello">
+        <select name="sort" id="">
+            <option value="asc">asc</option>
+            <option value="desc">desc</option>
+        </select>
+        <select name="column" id="options" onchange="handleonchange()">
+            <option value="id">ID</option>
+            <option value="fname">fname</option>
+            <option value="lname">lname</option>
+            <option value="phone">phone</option>
+            <option value="city">City</option>
+            <option value="country">Country</option>
+            <option value="zipcode">Zipcode</option>
+            <option value="blood">Blood Group</option>
+            <option value="createdAt">Created At</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function handleonchange()
+        {
+            let val = document.getElementById("options").value;
+            document.getElementById("options").value = val ;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        tr,td{
+            border: 1px solid black;
+            text-align: center;
+        }
+        .head{
+            background-color: black;
+            color: aliceblue;
+            text-align: center;
+        }
+        .head tr{
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Tomar Ashutoshsingh DEV089</h2>
+    <%-include('./partials/sort_component',{l})%>
+    <table>
+        <tr class="head">
+            <td>ID</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Phone</td>
+            <td>Email</td>
+            <td>City</td>
+            <td>Country</td>
+            <td>Zipcode</td>
+            <td>Blood Group</td>
+            <td>Created At</td>
+        </tr>
+            <% for(let i =0 ; i<datas.length ; i++) { %>
+                
+                <tr>
+                    <td><%= datas[i].id %></td>
+                    <td><%= datas[i].fname%></td>
+                    <td><%= datas[i].lname%></td>
+                    <td><%= datas[i].phone%></td>
+                    <td><%= datas[i].email%></td>
+                    <td><%= datas[i].city%></td>
+                    <td><%= datas[i].country%></td>
+                    <td><%= datas[i].zipcode%></td>
+                    <td><%= datas[i].blood%></td>
+                    <td><%= datas[i].createdAt%></td>
+                </tr>
+           
+                <% } %>
+    </table>
+    <%-include('./partials/component',{l,sort})%>
+</body>
+</html>
