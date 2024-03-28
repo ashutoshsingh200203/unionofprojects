@@ -98,3 +98,39 @@ exports.fullProfile = async (req, res) => {
         console.log(error)
     }
 }
+
+exports.dynamicQuery = async (req,res)=>{
+    try {
+        let result = [] ;
+
+        if(req.query.sqlinput)
+        {
+            let l = req.query.page || 1;
+            let offset =  (Number(l)-1)*10 ;
+            let sql2 = req.query.sqlinput ;
+            let sql =  sql2 + ` limit 20 offset ${offset}`;
+            conn.query(sql2,(err,result2)=>{
+                if(err) {console.log(err);}
+                else{
+                    let pages = Math.ceil((result2.length)/10) ;
+                    console.log(result2.length);
+                    console.log(pages);
+                    conn.query(sql,(err,result)=>{
+                        if(err) console.log(err);
+                        else{
+                            res.render('final',{result,l,sql2,pages}) ; 
+                        }
+                        
+                    })
+                  
+                   
+                }
+            })
+        }
+        else{
+            res.render('final',{result});
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
