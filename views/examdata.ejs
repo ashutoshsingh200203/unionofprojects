@@ -1,11 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        tr,
+        th,td {
+            border: 1px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+            text-align: center;
+            margin-left: 220px;
+        }
+    </style>
 </head>
+
 <body>
-    
+    <h2 style="text-align: center;">Ashutoshsingh Tomar DEV089</h2>
+    <%-include('./partials/componentEx',{l})%>
+        <table>
+            <tr>
+                <th rowspan="2">ID</th>
+                <th rowspan="2">FirstName</th>
+                <th rowspan="2">LastName</th>
+                <th colspan="2">Terminal</th>
+                <th colspan="2">Prelim</th>
+                <th colspan="2">Final</th>
+                <th rowspan="2">Obatined Mark</th>
+                <th rowspan="2">View</th>
+            </tr>
+            <tr>
+
+                <th>Practical</th>
+                <th>Theory</th>
+                <th>Practical</th>
+                <th>Theory</th>
+                <th>Practical</th>
+                <th>Theory</th>
+            </tr>
+
+            <% for(let i=0 ;i<result.length ; i+=3) { %>
+                <tr>
+                    <td><%=result[i].id%></td>
+                    <td><%=result[i].fname%></td>
+                    <td><%=result[i].lname%></td>
+                    
+                    <% for(let k=i ; k<i+3 ; k++) { %>
+                        <td><%=result[k].prmarks%></td>
+                        <td><%=result[k].thmarks%></td>   
+                        <% } %>
+                        <td><%= Number(result[i].prmarks) + Number(result[i].thmarks) + Number(result[i+1].prmarks) + Number(result[i+1].thmarks) + Number(result[i+2].prmarks) + Number(result[i+2].thmarks) %></td>
+                        <td><a href="/sqltasks/examdata/full-profile?id=<%=result[i].id %>" target="_blank">View</a></td>
+                </tr>
+                <% } %>
+
+        </table>
 </body>
+
 </html>
