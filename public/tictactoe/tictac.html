@@ -5,7 +5,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="tictac.css" type="text/css" />
+
+    <style>
+        body {
+
+            background-color: #e9c46a;
+            text-align: center;
+        }
+
+        .container {
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .ttt {
+            height: 60vmin;
+            width: 60vmin;
+        }
+
+        .cell {
+            background-color: #2a9d8f;
+            height: 18vmin;
+            width: 18vmin;
+            margin-bottom: 15px;
+            margin-right: 5px;
+            font-size: 40px;
+        }
+
+        .reset {
+            height: 35px;
+            width: 70px;
+            margin-top: 20px;
+            background-color: antiquewhite;
+            font-size: 20px;
+        }
+
+        .submit {
+            height: 35px;
+            width: 60px;
+            background-color: antiquewhite;
+            margin-left: 40px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        #mess {
+            font-size: 30px;
+        }
+    </style>
 
 </head>
 
@@ -32,9 +84,110 @@
         </div>
     </div>
     <button class="reset">Reset</button>
+    <script>
+        body = document.getElementsByTagName("body");
+        // cells = document.querySelectorAll(".cell");
+        let cells = document.getElementsByClassName("cell");
+        let message = document.getElementById("mess");
+        let msgcont = document.querySelector(".mescont");
+        let rst = document.getElementsByClassName("reset");
+        let restart = document.getElementsByClassName("start");
+        console.log(rst)
+
+        // console.log(body);
+        console.log(message);
+
+        let turn = true;
+        let val = 0;
+
+        const wp =
+            [[0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]];
+
+        /* if use query selector method in DOM then only this below foreach 
+        method is usable because it return a node list in response */
+
+        // cells.forEach((cell) => {
+        //     cell.addEventListener("click",()=>{
+        //         if(turn)
+        //         {
+        //             cell.innerText = "0";
+        //         }
+        //     })
+        // })
 
 
-    <script src="tictac.js"></script>
+
+        const reset = () => {
+            turn = true;
+            val = 0;
+            enable();
+            msgcont.classList.add("hide");
+        }
+
+        const enable = () => {
+            for (let cell of cells) {
+                cell.disabled = false;
+                cell.innerText = "";
+            }
+        }
+
+        const whoiswinner = () => {
+            message.innerText = "Booyah Winner Winner Chicken Dinner";
+            msgcont.classList.remove("hide");
+        }
+
+        for (let i = 0; i < cells.length; i++) {
+            cells[i].addEventListener("click", () => {
+                if (turn) {
+                    cells[i].innerText = "X";
+                    turn = false;
+                }
+                else {
+                    cells[i].innerText = "O"
+                    turn = true;
+                }
+                cells[i].disabled = true;
+                val++;
+                winner();
+
+                if (val === 9 && !winner()) {
+                    draw();
+                }
+
+            })
+        }
+
+        const winner = () => {
+            for (let win of wp) {
+                let pos1 = cells[win[0]].innerText;
+                let pos2 = cells[win[1]].innerText;
+                let pos3 = cells[win[2]].innerText;
+
+                if (pos1 != "" && pos2 != "" && pos3 != "") {
+                    if (pos1 == pos2 && pos2 == pos3) {
+                        console.log("winnnn!")
+                        whoiswinner();
+                    }
+                }
+            }
+        }
+
+        const draw = () => {
+            message.innerText = "Match is drawn";
+            msgcont.classList.remove("hide");
+        }
+
+        rst[0].addEventListener("click", reset);
+        restart[0].addEventListener("click", reset);
+    </script>
+
 </body>
 
 </html>
