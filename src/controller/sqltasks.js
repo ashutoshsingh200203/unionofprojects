@@ -99,95 +99,92 @@ exports.fullProfile = async (req, res) => {
     }
 }
 
-exports.dynamicQuery = async (req,res)=>{
+exports.dynamicQuery = async (req, res) => {
     try {
-        let result = [] ;
+        let result = [];
 
-        if(req.query.sqlinput)
-        {
+        if (req.query.sqlinput) {
             let l = req.query.page || 1;
-            let offset =  (Number(l)-1)*10 ;
-            let sql2 = req.query.sqlinput ;
-            let sql =  sql2 + ` limit 20 offset ${offset}`;
-            conn.query(sql2,(err,result2)=>{
-                if(err) {console.log(err);}
-                else{
-                    let pages = Math.ceil((result2.length)/10) ;
+            let offset = (Number(l) - 1) * 10;
+            let sql2 = req.query.sqlinput;
+            let sql = sql2 + ` limit 20 offset ${offset}`;
+            conn.query(sql2, (err, result2) => {
+                if (err) { console.log(err); }
+                else {
+                    let pages = Math.ceil((result2.length) / 10);
                     console.log(result2.length);
                     console.log(pages);
-                    conn.query(sql,(err,result)=>{
-                        if(err) console.log(err);
-                        else{
-                            res.render('final',{result,l,sql2,pages}) ; 
+                    conn.query(sql, (err, result) => {
+                        if (err) console.log(err);
+                        else {
+                            res.render('final', { result, l, sql2, pages });
                         }
-                        
+
                     })
-                  
-                   
+
+
                 }
             })
         }
-        else{
-            res.render('final',{result});
+        else {
+            res.render('final', { result });
         }
     } catch (error) {
         console.log(error)
     }
 }
 
-exports.orderbyUi = async (req,res)=>{
+exports.orderbyUi = async (req, res) => {
     try {
         let l = req.query.page || 1;
-        if(l>500)
-        {
-            l=500 ;
+        if (l > 500) {
+            l = 500;
         }
-        let sort = req.query.sort || "asc" ;
-        let column = req.query.column || "id" ;
-        let offset = (Number(l)-1)*100 ;
-    
+        let sort = req.query.sort || "asc";
+        let column = req.query.column || "id";
+        let offset = (Number(l) - 1) * 100;
+
         const query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master_2 order by ${column} ${sort} limit 100 offset ${offset}`
         // console.log(query);
-        if(sort == "asc")
-        {
+        if (sort == "asc") {
             sort = "desc"
         }
-        else{
-            sort = "asc" ;
+        else {
+            sort = "asc";
         }
         console.log(sort);
-        conn.query(query,(err,result)=>{
-            if(err)
-            console.log(err);
-            else
-            {
-             let datas = result ;
-            res.render('grid',{datas,l,sort});}
-            
+        conn.query(query, (err, result) => {
+            if (err)
+                console.log(err);
+            else {
+                let datas = result;
+                res.render('grid', { datas, l, sort });
+            }
+
         })
-    
+
     } catch (error) {
         console.log(error)
     }
 }
 
-exports.advancedSearch = async (req,res)=>{
+exports.advancedSearch = async (req, res) => {
     try {
         let l = req.query.page || 1;
-        let searchby = req.query.searchby ;
+        let searchby = req.query.searchby;
         let fname = req.query.fname;
         let lname = req.query.lname;
-        let phone = Number(req.query.phone) ;
+        let phone = Number(req.query.phone);
         let city = req.query.city;
         let operator = req.query.operator;
-        
+
         if (l > 500) {
             l = 500;
         }
         // console.log(typeof(phone))
         let offset = (Number(l) - 1) * 100;
-        let query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master limit 100 offset ${offset}` ;
-        
+        let query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master limit 100 offset ${offset}`;
+
         if (!searchby) {
             let conditions = [];
 
@@ -202,19 +199,109 @@ exports.advancedSearch = async (req,res)=>{
             }
 
 
-             query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master_2 ${whereclause} limit 100  offset ${offset}`
+            query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master_2 ${whereclause} limit 100  offset ${offset}`
             // console.log(query);
         }
-        if(searchby){  query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master_2 where id = ${searchby} limit 100 offset ${offset}`}
-        
+        if (searchby) { query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master_2 where id = ${searchby} limit 100 offset ${offset}` }
+
         conn.query(query, (err1, result) => {
             if (err1)
-                console.log(err1);  
+                console.log(err1);
             else {
                 let datas = result;
-                res.render('advancedsearch', { datas, l ,fname,lname,phone,city,operator});
+                res.render('advancedsearch', { datas, l, fname, lname, phone, city, operator });
             }
 
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.delimeterSearch = async (req, res) => {
+    try {
+        let delimeter2 = req.query.delimeter;
+        let delimeter = req.query.delimeter + "$";
+        // console.log(delimeter);
+        // var arr = delimeter.split(/[_^${}]/)
+        // console.log(arr);
+        let fname = [];
+        let lname = [];
+        let state = [];
+        let dep = [];
+        let age = [];
+        let phone = [];
+        let arr = [];
+        let sql = [];
+        for (let i = 0; i < delimeter.length; i++) {
+            for (let j = i + 1; j < delimeter.length; j++) {
+                if (delimeter.charAt(j) == "_" || delimeter.charAt(j) == "$" || delimeter.charAt(j) == "^" || delimeter.charAt(j) == "}" || delimeter.charAt(j) == "{" || delimeter.charAt(j) == ":") {
+                    let str = delimeter.slice(i, j);
+                    arr.push(str);
+                    i = j;
+                }
+            }
+        }
+        // console.log(arr);
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].charAt(0) == "_") {
+                fname.push(`fname like '%${arr[i].slice(1)}%'`);
+            }
+            if (arr[i].charAt(0) == "^") {
+                lname.push(`lname like '%${arr[i].slice(1)}%'`);
+            }
+            if (arr[i].charAt(0) == "$") {
+                dep.push(`department like '%${arr[i].slice(1)}%'`);
+            }
+            if (arr[i].charAt(0) == "}") {
+                age.push(`age like '%${arr[i].slice(1)}%'`);
+            }
+            if (arr[i].charAt(0) == "{") {
+                phone.push(`phone like '%${arr[i].slice(1)}%'`);
+            }
+            if (arr[i].charAt(0) == ":") {
+                state.push(`state like '%${arr[i].slice(1)}%'`);
+            }
+        }
+        //    console.log(fname);
+
+        if (fname.length > 0) {
+            let name = fname.join(" OR ");
+            sql.push(name)
+        }
+        if (lname.length > 0) {
+            let name = lname.join(" OR ")
+            sql.push(name)
+        }
+        if (dep.length > 0) {
+            let name = dep.join(" OR ")
+            sql.push(name)
+        }
+        if (age.length > 0) {
+            let name = age.join(" OR ")
+            sql.push(name)
+        }
+        if (phone.length > 0) {
+            let name = phone.join(" OR ")
+            sql.push(name)
+        }
+        if (state.length > 0) {
+            let name = state.join(" OR ")
+            sql.push(name)
+        }
+        let sql2 = "";
+        if (sql.length > 0) {
+            sql2 = "where " + sql.join(" AND ")
+        }
+
+        let sql3 = `select * from student_master ${sql2}`
+
+        conn.query(sql3, (err, result) => {
+            if (err) console.log(err);
+            else {
+                res.render('delimeterinput', { result, delimeter2 });
+                // console.log(result);
+            }
         })
     } catch (error) {
         console.log(error)

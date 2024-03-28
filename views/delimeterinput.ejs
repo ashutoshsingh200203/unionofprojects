@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        body{
+            background-color:honeydew;
+        }
+        #delimeter{
+            width: 300px;
+        }
+     
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Ashutoshsingh DEV089</h2>
+    <form action="/sqltasks/delimetersearch" method="get">
+        <label for="delimeter">Enter a Input :</label>
+        <input type="text" id="delimeter" name="delimeter" value="<%= delimeter2 %>">
+        <input type="submit" name="" id="" value="Submit">
+    </form>
+    <table style="margin-bottom: 30px; border-color: blue;">
+        <tr>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Department</td>
+            <td>Age</td>
+            <td>Phone</td>
+            <td>State</td>
+        </tr>
+        <tr>
+            <td>_</td>
+            <td>^</td>
+            <td>$</td>
+            <td>}</td>
+            <td>{</td>
+            <td>:</td>
+        </tr>
+    </table>
+    <%- include('./main',{result}) %>
+</body>
+</html>

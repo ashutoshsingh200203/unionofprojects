@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        tr,td,th{
+            border: 1px solid black ;
+           
+        }
+        table{
+            border-collapse: collapse;
+            text-align: center;
+            width: 90%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <% if(result.length != 0)  { %>
+    <table>
+        <tr>
+            <% Object.keys(result[0]).forEach(function(column){ %>
+                <th><%= column %></th>
+            <% }) %>
+        </tr>
+        <tr>
+            <% result.forEach(function(row){ %>
+                <tr>
+                    <% Object.values(row).forEach(function(value){ %>
+                        <td><%= value %></td>
+                    <% }) %>
+                </tr>
+            <% }) %>
+        </tr>
+    </table>
+    <% } else { %>
+        <h3 style="text-align: center;">No data found for this input</h3>
+        <% } %>
+</body>
+</html>
