@@ -134,3 +134,89 @@ exports.dynamicQuery = async (req,res)=>{
         console.log(error)
     }
 }
+
+exports.orderbyUi = async (req,res)=>{
+    try {
+        let l = req.query.page || 1;
+        if(l>500)
+        {
+            l=500 ;
+        }
+        let sort = req.query.sort || "asc" ;
+        let column = req.query.column || "id" ;
+        let offset = (Number(l)-1)*100 ;
+    
+        const query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master_2 order by ${column} ${sort} limit 100 offset ${offset}`
+        // console.log(query);
+        if(sort == "asc")
+        {
+            sort = "desc"
+        }
+        else{
+            sort = "asc" ;
+        }
+        console.log(sort);
+        conn.query(query,(err,result)=>{
+            if(err)
+            console.log(err);
+            else
+            {
+             let datas = result ;
+            res.render('grid',{datas,l,sort});}
+            
+        })
+    
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.advancedSearch = async (req,res)=>{
+    try {
+        let l = req.query.page || 1;
+        let searchby = req.query.searchby ;
+        let fname = req.query.fname;
+        let lname = req.query.lname;
+        let phone = Number(req.query.phone) ;
+        let city = req.query.city;
+        let operator = req.query.operator;
+        
+        if (l > 500) {
+            l = 500;
+        }
+        // console.log(typeof(phone))
+        let offset = (Number(l) - 1) * 100;
+        let query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master limit 100 offset ${offset}` ;
+        
+        if (!searchby) {
+            let conditions = [];
+
+            if (fname) conditions.push(`fname like  '${fname}%'`)
+            if (lname) conditions.push(`lname like  '${lname}%'`)
+            if (phone) conditions.push(`phone like  '${phone}%'`)
+            if (city) conditions.push(`city like  '${city}'%`)
+
+            let whereclause = "";
+            if (conditions.length > 0) {
+                whereclause = "WHERE " + conditions.join(` ${operator} `);
+            }
+
+
+             query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master_2 ${whereclause} limit 100  offset ${offset}`
+            // console.log(query);
+        }
+        if(searchby){  query = `select * ,DATE_FORMAT(createdAt, "%d/%m/%Y %T") as createdAt  from student_master_2 where id = ${searchby} limit 100 offset ${offset}`}
+        
+        conn.query(query, (err1, result) => {
+            if (err1)
+                console.log(err1);  
+            else {
+                let datas = result;
+                res.render('advancedsearch', { datas, l ,fname,lname,phone,city,operator});
+            }
+
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

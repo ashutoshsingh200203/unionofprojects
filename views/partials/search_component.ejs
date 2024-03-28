@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            width: 85%;
+            margin: auto;
+        }
+        form{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+       
+    <form action="/sqltasks/advancedsearch" method="get" style="visibility: hidden;" id="lower">
+        <label for="fname">Fname :</label>
+        <input type="text" name="fname">
+        <label for="lname">Lname :</label>
+        <input type="text" name="lname">
+        <label for="phone">Phone :</label>
+        <input type="text" name="phone">
+        <label for="city">City :</label>
+        <input type="text" name="city">
+        <select name="operator" id="">
+            <option value="AND" id="operator">AND</option>
+            <option value="OR" id="operation">OR</option>
+        </select>
+        <!-- <label for="country">Country :</label>
+        <input type="text" name="country"> -->
+        <input type="submit" value="GO">
+    </form>
+</div>
+</body>
+</html>
