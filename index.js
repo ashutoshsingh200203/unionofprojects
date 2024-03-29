@@ -10,6 +10,7 @@ require('dotenv').config();
 const login = require('./src/routes/auth')
 const jstasks = require('./src/routes/jstask')
 const sqltasks = require('./src/routes/sqltasks')
+const formcrud = require('./src/routes/formcrud')
 
 app.use(cookieparser())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 app.use("/",login)
 app.use("/jstasks",jstasks)
 app.use('/sqltasks',sqltasks)
-
+app.use('/formcrud',formcrud)
 app.set('view engine', 'ejs');
 
 // app.get("/", async (req, res) => {
@@ -200,5 +201,5 @@ app.set('view engine', 'ejs');
 // })
 
 app.listen(5900, () => {
-    console.log("Server is Alright MYBRO !!!!");
+    console.log("Server is running!!!!");
 })

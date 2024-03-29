@@ -113,7 +113,7 @@ exports.saveLogin = async (req, res) => {
         const uid = result[0][0].uid;
         if (decrypt === result[0][0].pass) {
             const token = jwt.sign({ uid }, process.env.SECRET_KEY, { expiresIn: '1h' })
-            res.cookie('token', token, { expires: new Date(Date.now() + 900000), httpOnly: true })
+            res.cookie('token', token, { expires: new Date(Date.now() + 3600000), httpOnly: true })
             console.log('mwesage')
             res.json({ msg: 'Login successfully', token: token })
 

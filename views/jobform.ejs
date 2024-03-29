@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 10px;
+        }
+
+        div {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JOB APPLICATION FORM</h1>
+    <form method="post" action="/formcrud/save-form" onsubmit=" return validateForm() ">
+        <fieldset>
+            <legend>BASIC DETAILS</legend>
+            <br />
+            <div>
+                <label for="lname">First Name :</label>
+                <input type="text" id="fname" name="fname" /> &nbsp;
+                <span class="error" id="fnameE"></span>
+                <label for="lname">Last Name :</label>
+                <input type="text" id="lname" name="lname" />
+                <span class="error" id="lnameE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="designation">Designation : </label>
+                <input type="text" id="designation" name="designation" /> &nbsp;
+                <span class="error" id="designationE"></span>
+                <label for="email">Email : </label>
+                <input type="text" id="email" name="email" />
+                <span class="error" id="emailE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="address1">Address 1 : </label>
+                <input id="address1" name="address1"></input> &nbsp;
+                <span class="error" id="address1E"></span>
+                <label for="address2">Address 2 : </label>
+                <input id="address2" name="address2"></input>
+                <span class="error" id="address2E"></span>
+            </div>
+            <br />
+            <div>
+                <label for="phone">Phone : </label>
+                <input type="text" name="phone" id="phone" /> &nbsp;
+                <span class="error" id="phoneE"></span>
+                Gender :
+                <label for="male">Male </label>
+                <input type="radio" id="male" value="gender" name="gender" />
+                <label for="female">Female </label>
+                <input type="radio" id="female" value="gender" name="gender" />
+            </div>
+            <br />
+            <div>
+                <label for="city">City : </label>
+                <input type="text" id="city" name="city" /> &nbsp;
+                <span class="error" id="cityE"></span>
+                <label for="zipcode">Zipcode : </label>
+                <input type="text" id="zipcode" name="zipcode" />
+                <span class="error" id="zipcodeE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="status">Relationship Status</label>
+                <select id="status" name="relationship">
+                    <option value="select">Select</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                </select>
+                &nbsp;
+                <label for="state">State : </label>
+                <input id="state" name="state" type="text" />
+                <span class="error" id="stateE"></span>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>EDUCATIONAL DETAILS</legend>
+            <div class="edugroup">
+                <input type="button" value="+" onclick="addedu()">
+                <input type="button" value="-" onclick="removeedu()">
+                <div class="edu">
+                    <select name="education[]" id="education">
+                        <option value="">Select</option>
+                        <option value="ssc">SSC</option>
+                        <option value="hsc">HSC</option>
+                        <option value="bachelors">Bachelors</option>
+                        <option value="masters">Masters</option>
+                        <option value="phd">PHD</option>
+                    </select>
+                    <label for="year"> Passing Year : </label>
+                    <input type="text" id="year" name="year[]" /> &nbsp;
+                    <!-- <span class="error" id="sscyearE"></span> -->
+                    <label for="percentage"> Percentage : </label>
+                    <input type="text" id="percentage" name="percentage[]" />
+                    <span class="error" id="eduerror"></span>
+                </div>
+             
+
+            </div>
+            <br />
+        </fieldset>
+        <br />
+
+        <fieldset>
+            <legend>WORK EXPERIENCE</legend>
+            <input type="button" value="+" onclick="addwork()">
+            <input type="button" value="-" onclick="removework()">
+            <div class="workgroup">
+                <div class="work">
+                    <label for="compname">Company Name : </label>
+                    <input type="text" id="compname" name="compname[]" /> &nbsp;
+                    <span class="error" id="compname1E"></span>
+                    <label for="desig">Designaton : </label>
+                    <input type="text" id="desig" name="desig[]" /> &nbsp;
+                    <span class="error" id="desig1E"></span>
+                    <label for="todate">To Date : </label>
+                    <input type="text" id="todate" name="todate[]" /> &nbsp;
+                    <span class="error" id="todate1E"></span>
+                    <label for="fromdate">From Date : </label>
+                    <input type="text" id="fromdate" name="fromdate[]" />
+                    <span class="error" id="fromdate1E"></span>
+                </div>
+            </div>
+            <br />
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>LANGUAGE KNOWN</legend>
+            <div>
+                <label for="hindi">Hindi</label>
+                <input type="checkbox" id="hindi" value="hindi" name="language[]" />
+                <label for="hread">Read</label>
+                <input type="checkbox" id="hread" value="read" name="hread" />
+                <label for="hspeak">Speak</label>
+                <input type="checkbox" id="hspeak" value="speak" name="hspeak" />
+                <label for="hwrite">Write</label>
+                <input type="checkbox" id="hwrite" value="write" name="hwrite" />
+                <span class="error" id="hindiE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="english">English</label>
+                <input type="checkbox" id="english" value="english" name="language[]" />
+                <label for="eread">Read</label>
+                <input type="checkbox" id="eread" value="read" name="eread" />
+                <label for="espeak">Speak</label>
+                <input type="checkbox" id="espeak" value="speak" name="espeak" />
+                <label for="ewrite">Write</label>
+                <input type="checkbox" id="ewrite" value="write" name="ewrite" />
+                <span class="error" id="englishE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="gujarati">Gujarati</label>
+                <input type="checkbox" id="gujarati" value="gujarati" name="language[]" />
+                <label for="gread">Read</label>
+                <input type="checkbox" id="gread" value="read" name="gread" />
+                <label for="gspeak">Speak</label>
+                <input type="checkbox" id="gspeak" value="speak" name="gspeak" />
+                <label for="gwrite">Write</label>
+                <input type="checkbox" id="gwrite" value="write" name="gwrite" />
+                <span class="error" id="gujaratiE"></span>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>TECHNOLOGIES YOU KNOWN</legend>
+            <div>
+                <label for="php">PHP</label>
+                <input type="checkbox" id="php" value="php" name="tech[]" onchange='handlechange("php","phpspan")' />
+                <span style="visibility:hidden;" class="phpspan">
+                    <label for="phpbeg">Beginner</label>
+                    <input type="radio" id="phpbeg" value="beginner" name="php" />
+                    <label for="phpmid">Mediator</label>
+                    <input type="radio" id="phpmid" value="mediator" name="php" />
+                    <label for="phpex">Expert</label>
+                    <input type="radio" id="phpex" value="expert" name="php" />
+                    <span class="error" id="phpE"></span>
+                </span>
+            </div>
+            <br />
+            <div>
+                <label for="oracle">Oracle</label>
+                <input type="checkbox" id="oracle" value="oracle" name="tech[]"
+                    onchange="handlechange('oracle','oraclespan')" />
+                <span class="oraclespan" style="visibility: hidden;">
+                    <label for="orbeg">Beginner</label>
+                    <input type="radio" id="orbeg" value="beginner" name="oracle" />
+                    <label for="ormid">Mediator</label>
+                    <input type="radio" id="ormid" value="mediator" name="oracle" />
+                    <label for="orex">Expert</label>
+                    <input type="radio" id="orex" value="expert" name="oracle" />
+                    <span class="error" id="oracleE"></span>
+                </span>
+            </div>
+            <br />
+            <div>
+                <label for="mysql">Mysql</label>
+                <input type="checkbox" id="mysql" value="mysql" name="tech[]"
+                    onchange="handlechange('mysql','mysqlspan')" />
+                <span class="mysqlspan" style="visibility: hidden;">
+                    <label for="sqlbeg">Beginner</label>
+                    <input type="radio" id="sqlbeg" value="beginner" name="mysql" />
+                    <label for="sqlmid">Mediator</label>
+                    <input type="radio" id="sqlmid" value="mediator" name="mysql" />
+                    <label for="sqlex">Expert</label>
+                    <input type="radio" id="sqlex" value="expert" name="mysql" />
+                    <span class="error" id="sqlE"></span>
+                </span>
+            </div>
+            <br />
+            <div>
+                <label for="laravel">Laravel</label>
+                <input type="checkbox" id="laravel" value="laravel" name="tech[]"
+                    onchange="handlechange('laravel','laravelspan')" />
+                <span class="laravelspan" style="visibility:hidden;">
+                    <label for="larbeg">Beginner</label>
+                    <input type="radio" id="larbeg" value="beginner" name="laravel" />
+                    <label for="larmid">Mediator</label>
+                    <input type="radio" id="larmid" value="mediator" name="laravel" />
+                    <label for="larex">Expert</label>
+                    <input type="radio" id="larex" value="expert" name="laravel" />
+                    <span class="error" id="laravelE"></span>
+                </span>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>REFERENCES</legend>
+            <div class="refgroup">
+                <input type="button" value="+" onclick="addref()">
+                <input type="button" value="-" onclick="removeref()">
+            <div class="ref">
+                <label for="ref1name">Name : </label>
+                <input type="text" id="refname" name="refname[]" /> &nbsp;
+                <label for="ref1phone">Phone : </label>
+                <input type="text" id="refphone" name="refphone[]" /> &nbsp;
+                <label for="ref1rel">Relation : </label>
+                <input type="text" id="refrel" name="refrel[]" />
+                <span class="error" id="referror"></span>
+            </div>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>PREFERENCES</legend>
+            <div>
+                <label for="ectc">Expected CTC : </label>
+                <input type="text" id="ectc" name="ectc" /> &nbsp;
+                <span class="error" id="ectcE"></span>
+                <label for="cctc">Current CTC : </label>
+                <input type="text" id="cctc" name="cctc" /> &nbsp;
+                <span class="error" id="cctcE"></span>
+            </div>
+            <div>
+                <label for="notice">Notice Period (in months): </label>
+                <input type="text" id="notice" name="notice" />
+                <span class="error" id="noticeE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="location">Prefered Location : </label>
+                <select name="location" id="location">
+                    <option value="ahmedabad">Ahmedabad</option>
+                    <option value="surat">Surat</option>
+                    <option value="vadodara">Vadodara</option>
+                    <option value="rajkot">Rajkot</option>
+                </select>
+                &nbsp;
+                <label for="dept">Department : </label>
+                <select name="dept" id="dept">
+                    <option value="development">Development</option>
+                    <option value="designing">Designing</option>
+                    <option value="hr">HR</option>
+                    <option value="devops">Devops</option>
+                </select>
+            </div>
+        </fieldset>
+
+        <input type="submit" value="Submit" class="submit"> &nbsp;
+        <input type="reset" class="reset">
+    </form>
+</body>
+
+<script>
+
+    function handlechange(language, span) {
+        // console.log(language)
+        if (document.getElementById(language).checked) {
+            document.getElementsByClassName(span)[0].style.visibility = "visible";
+        }
+        else {
+            document.getElementsByClassName(span)[0].style.visibility = "hidden";
+        }
+    }
+
+    function addref()
+    {
+        let refgroup = document.getElementsByClassName('refgroup')[0];
+        const inputs = refgroup.lastElementChild.getElementsByTagName('input');
+            console.log(refgroup.lastElementChild)
+            if (refgroup.lastElementChild) {
+                for (let i = 0; i < inputs.length; i++) {
+
+                    if (inputs[i].value == '') {
+                        document.getElementById('referror').innerHTML = "please fill the fields"
+                        return false;
+                    }
+                    else if (!/^[a-zA-Z0-9.-\s]*$/.test(inputs[i].value)) {
+                        document.getElementById('referror').innerHTML = "fill values"
+                        return false;
+                    }
+                }
+            }
+        let ref = document.getElementsByClassName('ref')[0];
+
+        let refclone = ref.cloneNode(true);
+        refgroup.appendChild(refclone);
+    }
+
+    function removeref()
+    {
+        let refgroup = document.getElementsByClassName('refgroup')[0];
+        let reflength = document.querySelectorAll('.ref').length ;
+        
+        if(reflength > 0)
+        {
+            refgroup.removeChild(refgroup.lastElementChild)
+        }
+    }
+    function addwork() {
+        let work = document.getElementsByClassName('work')[0];
+        let workgroup = document.getElementsByClassName('workgroup')[0];
+        let clonework = work.cloneNode(true);
+
+        workgroup.appendChild(clonework);
+        // workgroup[0].appendChild(work[0])
+    }
+    function removework() {
+        let workgroup = document.getElementsByClassName('workgroup')[0];
+        let worklength = document.querySelectorAll('.work').length;
+        console.log(worklength);
+        console.log(workgroup)
+        if (worklength > 1) {
+            workgroup.removeChild(workgroup.lastElementChild);
+        }
+    }
+
+    function addedu()
+    {
+        let edugroup = document.getElementsByClassName('edugroup')[0];
+            const inputs = edugroup.lastElementChild.getElementsByTagName('input');
+            console.log(edugroup.lastElementChild)
+            if (edugroup.lastElementChild) {
+                for (let i = 0; i < inputs.length; i++) {
+
+                    if (inputs[i].value == '') {
+                        document.getElementById('eduerror').innerHTML = "please fill the fields"
+                        return false;
+                    }
+                    else if (!/^\d+/.test(inputs[i].value)) {
+                        document.getElementById('eduerror').innerHTML = "fill values"
+                        return false;
+                    }
+                }
+            }
+            let edu = document.getElementsByClassName('edu')[0];
+            let cloneedu = edu.cloneNode(edu);
+
+            edugroup.appendChild(cloneedu)
+    }
+
+    function removeedu()
+    {
+        let edugroup = document.getElementsByClassName('edugroup')[0] ;
+        let edulength = document.querySelectorAll('.edu').length ;
+         if(edulength > 1)
+         {
+            edugroup.removeChild(edugroup.lastElementChild)
+         }
+    }
+
+    function validateForm() {
+
+        let inputs = document.getElementsByTagName('input');
+        console.log(inputs);
+        // console.log(inputs[0])
+
+        let isValid = true;
+        // console.log(inputs);
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].name === "fname") {
+                if (inputs[i].value === "") {
+                    document.getElementById("fnameE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+                else if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("fnameE").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+
+            }
+            if (inputs[i].name === "lname") {
+                if (inputs[i].value === "") {
+                    document.getElementById("lnameE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+                else if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("lnameE").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "designation") {
+                if (inputs[i].value === "") {
+                    document.getElementById("designationE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+                else if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("designationE").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "email") {
+                if (inputs[i].value === "") {
+                    document.getElementById("emailE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+                else if (!/^[^\s@]+@[^\s]+\.[^\s@]+$/.test(inputs[i].value)) {
+                    document.getElementById("emailE").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "address1") {
+                if (inputs[i].value === "") {
+                    document.getElementById("address1E").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+
+            }
+            if (inputs[i].name === "address2") {
+                if (inputs[i].value === "") {
+                    document.getElementById("address2E").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+
+            }
+            if (inputs[i].name === "phone") {
+                if (inputs[i].value === "") {
+                    document.getElementById("phoneE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+                if (!/^\d{10}$/.test(inputs[i].value)) {
+                    document.getElementById("phoneE").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "city") {
+                if (inputs[i].value === "") {
+                    document.getElementById("cityE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+                if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("cityE").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "zipcode") {
+                if (inputs[i].value === "") {
+                    document.getElementById("zipcodeE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+                else if (!/^[1-9][0-9]{5}$/.test(inputs[i].value)) {
+                    document.getElementById("zipcodeE").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "state") {
+                if (inputs[i].value === "") {
+                    document.getElementById("stateE").innerText = "Please enters the characters in it"
+                    isValid = false;
+
+                }
+                if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("stateE").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+
+                }
+            }
+
+
+            // Languages  
+
+            if (inputs[i].name === "language[]") {
+                if (document.getElementById("hindi").checked) {
+                    if (!(document.getElementById('hread').checked || document.getElementById('hwrite').checked || document.getElementById('hspeak').checked)) {
+                        document.getElementById('hindiE').innerText = "Please select your  proficiency ";
+                    }
+
+                }
+                if (!document.getElementById("hindi").checked) {
+                    if (document.getElementById('hread').checked || document.getElementById('hwrite').checked || document.getElementById('hspeak').checked) {
+                        document.getElementById('hindiE').innerText = "Please select the language ";
+                    }
+
+                }
+            }
+            if (inputs[i].name === "language[]") {
+                if (document.getElementById("gujarati").checked) {
+                    if (!(document.getElementById('gread').checked || document.getElementById('gwrite').checked || document.getElementById('gspeak').checked)) {
+                        document.getElementById('gujaratiE').innerText = "Please select your proficiency ";
+                    }
+
+                }
+                if (!document.getElementById("gujarati").checked) {
+                    if (document.getElementById('gread').checked || document.getElementById('gwrite').checked || document.getElementById('gspeak').checked) {
+                        document.getElementById('gujaratiE').innerText = "Please select the language ";
+                    }
+
+                }
+            }
+            if (inputs[i].name === "language[]") {
+                if (document.getElementById("english").checked) {
+                    if (!(document.getElementById('eread').checked || document.getElementById('ewrite').checked || document.getElementById('espeak').checked)) {
+                        document.getElementById('englishE').innerText = "Please select your proficiency ";
+                    }
+
+                }
+                if (!document.getElementById("english").checked) {
+                    if (document.getElementById('eread').checked || document.getElementById('ewrite').checked || document.getElementById('espeak').checked) {
+                        document.getElementById('englishE').innerText = "Please select the language ";
+                    }
+
+                }
+            }    
+
+            if (inputs[i].name === "ectc") {
+                if (inputs[i].value === "") {
+                    document.getElementById("ectcE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+
+             
+            }
+            if (inputs[i].name === "cctc") {
+                if (inputs[i].value === "") {
+                    document.getElementById("cctcE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+
+            }
+            if (inputs[i].name === "notice") {
+                if (inputs[i].value === "") {
+                    document.getElementById("noticeE").innerText = "Please enters the characters in it"
+                    isValid = false;
+                }
+
+            }
+
+
+            if (inputs[i].name === "compname1") {
+                if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("compname1E").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+
+                }
+            }
+            if (inputs[i].name === "compname2") {
+
+                if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("compname2E").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+
+                }
+            }
+
+            if (inputs[i].name === "desig1") {
+                if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("desig1E").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+
+                }
+            }
+            if (inputs[i].name === "desig2") {
+                if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("desig2E").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "compname3") {
+                if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("compname3E").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "desig3") {
+                if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                    document.getElementById("desig3E").innerText = "Enter the valid characters in it ..."
+                    isValid = false;
+                }
+            }
+            if (inputs[i].name === "todate1") {
+                if (inputs[i].value != "") {
+                    if (!/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(inputs[i].value)) {
+                        document.getElementById("todate1E").innerText = "Enter the valid characters in it ..."
+                        isValid = false;
+                    }
+                }
+            }
+            if (inputs[i].name === "todate2") {
+                if (inputs[i].value != "") {
+                    if (!/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(inputs[i].value)) {
+                        document.getElementById("todate2E").innerText = "Enter the valid characters in it ..."
+                        isValid = false;
+                    }
+                }
+            }
+            if (inputs[i].name === "todate3") {
+                if (inputs[i].value != "") {
+                    if (!/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(inputs[i].value)) {
+                        document.getElementById("todate3E").innerText = "Enter the valid characters in it ..."
+                        isValid = false;
+                    }
+                }
+            }
+            if (inputs[i].name === "fromdate1") {
+                if (inputs[i].value != "") {
+                    if (!/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(inputs[i].value)) {
+                        document.getElementById("fromdate1E").innerText = "Enter the valid characters in it ..."
+                        isValid = false;
+                    }
+                }
+            }
+            if (inputs[i].name === "fromdate2") {
+                if (inputs[i].value != "") {
+                    if (!/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(inputs[i].value)) {
+                        document.getElementById("fromdate2E").innerText = "Enter the valid characters in it ..."
+                        isValid = false;
+                    }
+                }
+            }
+            if (inputs[i].name === "fromdate3") {
+                if (inputs[i].value != "") {
+                    if (!/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/.test(inputs[i].value)) {
+                        document.getElementById("fromdate3E").innerText = "Enter the valid characters in it ..."
+                        isValid = false;
+                    }
+                }
+
+            }
+        }
+        return isValid;
+    }
+
+</script>
+
+</html>

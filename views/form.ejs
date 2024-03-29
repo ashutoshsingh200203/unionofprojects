@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            margin-top: 30px;
+        }
+
+        #submit {
+            margin-top: 25px;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/save-form" method="post" onsubmit=" return validateForm()">
+        <div>
+            <input type="hidden" name="id">
+            <label for="fname">First Name :</label>
+            <input type="text" id="fname" name="fname">
+            <span id="fnameerror" class="error"></span>
+        </div>
+        <div>
+            <label for="lname">Last Name :</label>
+            <input type="text" id="lname" name="lname">
+            <span id="lnameerror" class="error"></span>
+        </div>
+        <div>
+            <label for="age">Age</label>
+            <input type="text" id="age" name="age">
+            <span id="ageerror" class="error"></span>
+        </div>
+        <div>
+            <label for="phone">Phone :</label>
+            <input type="text" id="phone" name="phone">
+            <span id="phoneerror" class="error"></span>
+        </div>
+        <div>
+            <label for="email">Email :</label>
+            <input type="text" id="email" name="email">
+            <span id="emailerror" class="error"></span>
+        </div>
+        <div>
+            <label for="gender">Gender :</label>
+            <label for="male">Male :</label>
+            <input type="radio" id="male" value="male" name="gender" required>
+            <label for="female">Female :</label>
+            <input type="radio" id="female" value="female" name="gender" required>
+            <label for="other">Other :</label>
+            <input type="radio" id="other" value="other" name="gender" required>
+            <span id="gendererror" class="error"></span>
+        </div>
+        <div>
+            <label for="address">Address :</label>
+            <input type="text" id="address" name="address">
+            <span id="addresserror" class="error"></span>
+        </div>
+        <input type="submit" value="submit" id="submit">
+        <input type="reset" value="reset" id="reset">
+    </form>
+
+    <script>
+        function validateForm() 
+        {
+            const fname = document.getElementById("fname").value;
+            console.log(fname);
+            const lname = document.getElementById("lname").value;
+            console.log(lname);
+            const age = document.getElementById("age").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            // const gender = document.getElementById("gender").value;
+            const address = document.getElementById("address").value;
+
+            let isValid = true;
+
+            if (fname.trim() === "") {
+                getElement("fnameerror")
+                isValid = false;
+            }
+            else if (!/^[a-zA-Z\s]*$/.test(fname)) {
+                regex("fnameerror");
+                isValid = false;
+            }
+            else {
+                normal("fnameerror")
+            }
+            if (lname.trim() === "") {
+                getElement("lnameerror");
+                isValid = false;
+            }
+            else if (!/^[a-zA-Z\s]*$/.test(lname)) {
+                regex("lnameerror");
+                isValid = false;
+            }
+            else {
+                normal("lnameerror")
+            }
+            if (phone.trim() === "") {
+                getElement("phoneerror");
+                isValid = false;
+            }
+            else if (!/^\d{10}$/.test(phone)) {
+                regex("phoneerror");
+                isValid = false;
+            }
+            else {
+                normal("phoneerror");
+            }
+            if (age.trim() === "") {
+                getElement("ageerror");
+                isValid = false;
+            }
+            else if (!/^\d{3}$/.test(age)) {
+                regex("ageerror");
+                isValid = false;
+            }
+            else {
+                normal("ageerror");
+            }
+            if (address.trim() === "") {
+                getElement("addresserror");
+                isValid = false;
+            }
+            else if(!/[$&+,:;=?@#|'<>.-^*()%!]/.test(address))
+            {
+                regex("addresserror")
+                isValid = false;
+            }
+            else {
+                normal("addresserror");
+            }
+            if (email.trim() === "") {
+                getElement("emailerror");
+                isValid = false;
+            }
+            else if (!/^[^\s@]+@[^\s]+\.[^\s@]+$/.test(email)) {
+                regex("emailerror");
+                isValid = false;
+            }
+            else {
+                normal("emailerror");
+            }
+            return isValid;
+        }
+
+        function getElement(error) {
+            document.getElementById(error).innerText = "This field can't be empty";
+        }
+        function regex(error) {
+            document.getElementById(error).innerText = "Please enter the valid characters";
+        }
+        function normal(error) {
+            document.getElementById.innerText = "";
+        }
+
+        
+    </script>
+</body>
+
+</html>

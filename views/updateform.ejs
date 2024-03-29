@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .error {
+            color: red;
+           font-size: 8px;
+        }
+
+        div {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>JOB APPLICATION FORM</h1>
+    <form method="post" action="/save-update" onsubmit=" return validateForm() ">
+        <fieldset>
+            <legend>BASIC DETAILS</legend>
+            <br />
+            <div>
+                <input type="hidden" value="<%= result[0][0].emp_id %>" name="id">
+                <label for="lname">First Name :</label>
+                <input type="text" id="fname" name="fname" value="<%= result[0][0].fname %>" /> &nbsp;
+                <span class="error" id="fnameE"></span>
+                <label for="lname">Last Name :</label>
+                <input type="text" id="lname" name="lname" value="<%= result[0][0].lname %>" />
+                <span class="error" id="lnameE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="designation">Designation : </label>
+                <input type="text" id="designation" name="designation" value="<%= result[0][0].designation %>"  /> &nbsp;
+                <span class="error" id="designationE"></span>
+                <label for="email">Email : </label>
+                <input type="text" id="email" name="email" value="<%= result[0][0].email %>" />
+                <span class="error" id="emailE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="address1">Address 1 : </label>
+                <input id="address1" name="address1" value="<%= result[0][0].address_1 %>" ></input> &nbsp;
+                <span class="error" id="address1E"></span>
+                <label for="address2">Address 2 : </label>
+                <input id="address2" name="address2" value="<%= result[0][0].address_2 %>" ></input>
+                <span class="error" id="address2E"></span>
+            </div>
+            <br />
+            <div>
+                <label for="phone">Phone : </label>
+                <input type="text" name="phone" id="phone" value="<%= result[0][0].phone_number %>" /> &nbsp;
+                <span class="error" id="phoneE"></span>
+                Gender :
+                <label for="male">Male </label>
+                <input type="radio" id="male" value="Male" name="gender" <%=result[0][0].gender === 'male' ? 'checked' : ''  %> />
+                <label for="female">Female </label>
+                <input type="radio" id="female" value="female" name="gender" <%=result[0][0].gender === 'female' ? 'checked' : ''  %>/>
+            </div>
+            <br />
+            <div>
+                <label for="city">City : </label>
+                <input type="text" id="city" name="city" value="<%= result[0][0].city %>"  /> &nbsp;
+                <span class="error" id="cityE"></span>
+                <label for="zipcode">Zipcode : </label>
+                <input type="text" id="zipcode" name="zipcode" value="<%= result[0][0].zipcode %>"  />
+                <span class="error" id="zipcodeE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="status">Relationship Status</label>
+                <select id="status" name="relationship">
+                    <option value="single" value="<%= result[0][0].relationship === "single" ? 'selected' : '' %>" >Single</option>
+                    <option value="married" value="<%= result[0][0].relationship === "married" ? 'selected' : '' %>">Married</option>
+                </select>
+                &nbsp;
+                <label for="state">State : </label>
+                <input id="state" name="state" type="text" value="<%= result[0][0].state %>" />
+                <span class="error" id="stateE"></span>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>EDUCATIONAL DETAILS</legend>
+            <% for(let i = 0 ;i<result1[0].length ; i++) { %>
+            <div class="edugroup">
+                <div class="edu">
+                    <input type="hidden" value="<%= result1[0][i].id %>" name="eduid[]"  >
+                    <select name="education[]" id="">
+                        <option value="">Select</option>
+                        <option value="ssc" <%= result1[0][i].education === "ssc" ? 'selected' : '' %>>SSC</option>
+                        <option value="hsc" <%=result1[0][i].education === "hsc" ? 'selected' : '' %>>HSC</option>
+                        <option value="bachelors" <%= result1[0][i].education === "bachelors" ? 'selected' : '' %>>Bachelors</option>
+                        <option value="masters" <%= result1[0][i].education === "masters" ?'selected' : '' %>>Masters</option>
+                        <option value="phd" <%= result1[0][i].education === "phd" ? 'selected': '' %>>PHD</option>
+                    </select>
+                    <label for="year"> Passing Year : </label>
+                    <input type="text" cid="year" name="year[]" value="<%= result1[0][i].year %>"/> &nbsp;
+                    <!-- <span class="error" id="sscyearE"></span> -->
+                    <label for="percentage"> Percentage : </label>
+                    <input type="text" id="percentage" name="percentage[]" value="<%=result1[0][i].percentage %>" />
+                </div>
+                <span class="error" id="eduerror"></span>
+
+            </div>
+            <% } %>
+            <br />
+        </fieldset>
+        <br />
+
+        <fieldset>
+            <legend>WORK EXPERIENCE</legend>
+            <% for(let i=0 ; i<result2[0].length ; i++)   { %>
+            <div class="workgroup">
+                <div class="work">
+                    <input type="hidden" value="<%= result2[0][i].id %>" name="workid[]">
+                    <label for="compname">Company Name : </label>
+                    <input type="text" id="compname" name="compname[]" value="<%=result2[0][i].compname %>"/> &nbsp;
+                    <span class="error" id="compname1E"></span>
+                    <label for="desig">Designaton : </label>
+                    <input type="text" id="desig" name="desig[]" value="<%=result2[0][i].designation %>" /> &nbsp;
+                    <span class="error" id="desig1E"></span>
+                    <label for="todate">To Date : </label>
+                    <input type="text" id="todate" name="todate[]" value="<%=JSON.stringify(result2[0][i].from_ ).slice(1,11)%>" /> &nbsp;
+                    <span class="error" id="todate1E"></span>
+                    <label for="fromdate">From Date : </label>
+                    <input type="text" id="fromdate" name="fromdate[]" value="<%=JSON.stringify(result2[0][i].to_).slice(1,11) %>"/>
+                    <span class="error" id="fromdate1E"></span>
+                </div>
+            </div>
+            <% } %>
+            <br />
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>LANGUAGE KNOWN</legend>
+            <div>
+                <label for="hindi">Hindi</label>
+                <input type="checkbox" id="hindi" value="hindi" name="language[]" <%= hindi.length != 0 &&  hindi[0].lang === "hindi" ? 'checked' : '' %> />
+                <label for="hread">Read</label>
+                <input type="checkbox" id="hread" value="read" name="hread" <%= hindi.length!= 0  && hindi[0].speak_ === 1? 'checked' : '' %> />
+                <label for="hspeak">Speak</label>
+                <input type="checkbox" id="hspeak" value="speak" name="hspeak" <%=  hindi.length!= 0 && hindi[0].read_ === 1 ? 'checked' : '' %> />
+                <label for="hwrite">Write</label>
+                <input type="checkbox" id="hwrite" value="write" name="hwrite" <%= hindi.length!= 0  && hindi[0].write_ === 1 ? 'checked' : '' %> />
+                <span class="error" id="hindiE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="english">English</label>
+                <input type="checkbox" id="english" value="english" name="language[]" <%= english.length !=0 && english[0].lang === "english" ? 'checked' : '' %>  />
+                <label for="eread">Read</label>
+                <input type="checkbox" id="eread" value="read" name="eread" <%= english.length != 0 && english[0].read_ === 1? 'checked' : '' %> />
+                <label for="espeak">Speak</label>
+                <input type="checkbox" id="espeak" value="speak" name="espeak" <%= english.length != 0 && english[0].speak_ === 1? 'checked' : '' %>  />
+                <label for="ewrite">Write</label>
+                <input type="checkbox" id="ewrite" value="write" name="ewrite" <%= english.length != 0 && english[0].write_ === 1? 'checked' : '' %>  />
+                <span class="error" id="englishE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="gujarati">Gujarati</label>
+                <input type="checkbox" id="gujarati" value="gujarati" name="language[]" <%= gujarati.length != 0 && [0].lang === "gujarati" ? 'checked' : '' %>  />
+                <label for="gread">Read</label>
+                <input type="checkbox" id="gread" value="read" name="gread" <%= gujarati.length != 0  && gujarati[0].read_ === 1? 'checked' : '' %>  />
+                <label for="gspeak">Speak</label>
+                <input type="checkbox" id="gspeak" value="speak" name="gspeak" <%= gujarati.length != 0  && gujarati[0].speak_ === 1? 'checked' : '' %>  />
+                <label for="gwrite">Write</label>
+                <input type="checkbox" id="gwrite" value="write" name="gwrite" <%= gujarati.length != 0  && gujarati[0].write_ === 1? 'checked' : '' %>  />
+                <span class="error" id="gujaratiE"></span>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>TECHNOLOGIES YOU KNOWN</legend>
+            <div>
+                <label for="php">PHP</label>
+                <input type="checkbox" id="php" value="php" name="tech[]" <%= php.length != 0 && php[0].tech === "php" ? 'checked' : '' %>/>
+                    <label for="phpbeg">Beginner</label>
+                    <input type="radio" id="phpbeg" value="beginner" name="php" <%= php.length != 0 && php[0].level === "beginner" ? 'checked' : ''  %> />
+                    <label for="phpmid">Mediator</label>
+                    <input type="radio" id="phpmid" value="mediator" name="php" <%= php.length != 0 && php[0].level === "mediator" ? 'checked' : ''  %> />
+                    <label for="phpex">Expert</label>
+                    <input type="radio" id="phpex" value="expert" name="php" <%= php.length != 0 && php[0].level === "expert" ? 'checked' : ''  %> />
+                    <span class="error" id="phpE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="oracle">Oracle</label>
+                <input type="checkbox" id="oracle" value="oracle" name="tech[]" <%= oracle.length != 0 && oracle[0].tech === "oracle" ? 'checked' : '' %> />
+                    <label for="orbeg">Beginner</label>
+                    <input type="radio" id="orbeg" value="beginner" name="oracle" <%= oracle.length != 0 && oracle[0].level === "beginner" ? 'checked' : '' %> />
+                    <label for="ormid">Mediator</label>
+                    <input type="radio" id="ormid" value="mediator" name="oracle" <%= oracle.length != 0 && oracle[0].level === "mediator" ? 'checked' : '' %> />
+                    <label for="orex">Expert</label>
+                    <input type="radio" id="orex" value="expert" name="oracle" <%= oracle.length != 0 && oracle[0].level === "expert" ? 'checked' : '' %> />
+                    <span class="error" id="oracleE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="mysql">Mysql</label>
+                <input type="checkbox" id="mysql" value="mysql" name="tech[]" <%= mysql.length != 0 && mysql[0].tech === "mysql" ? 'checked' : ''  %> />
+                    <label for="sqlbeg">Beginner</label>
+                    <input type="radio" id="sqlbeg" value="beginner" name="mysql" <%= mysql.length != 0 && mysql[0].level === "beginner" ? 'checked' : ''  %> />
+                    <label for="sqlmid">Mediator</label>
+                    <input type="radio" id="sqlmid" value="mediator" name="mysql" <%= mysql.length != 0 && mysql[0].level === "mediator" ? 'checked' : ''  %> />
+                    <label for="sqlex">Expert</label>
+                    <input type="radio" id="sqlex" value="expert" name="mysql" <%= mysql.length != 0 && mysql[0].level === "expert" ? 'checked' : ''  %> />
+                    <span class="error" id="sqlE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="laravel">Laravel</label>
+                <input type="checkbox" id="laravel" value="laravel" name="tech[]" <%= laravel.length != 0 && laravel[0].tech === "laravel" ? 'checked': '' %> />
+                    <label for="larbeg">Beginner</label>
+                    <input type="radio" id="larbeg" value="beginner" name="laravel" <%= laravel.length != 0 && laravel[0].level === "beginner" ? 'checked': '' %> />
+                    <label for="larmid">Mediator</label>
+                    <input type="radio" id="larmid" value="mediator" name="laravel" <%= laravel.length != 0 && laravel[0].level === "mediator" ? 'checked': '' %> />
+                    <label for="larex">Expert</label>
+                    <input type="radio" id="larex" value="expert" name="laravel" <%= laravel.length != 0 && laravel[0].level === "expert" ? 'checked': '' %> />
+                    <span class="error" id="laravelE"></span>
+            </div>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>REFERENCES</legend>
+            <% for(let i=0 ; i<result5[0].length ; i++) { %>
+            <div class="ref">
+                <input type="hidden" value="<%= result5[0][i].id %>" name="refid[]">
+                <label for="ref1name">Name : </label>
+                <input type="text" id="refname" name="refname[]" value="<%= result5[0][i].name_ %>" /> &nbsp;
+                <span class="error" id="ref1nameE"></span>
+                <label for="ref1phone">Phone : </label>
+                <input type="text" id="refphone" name="refphone[]" value="<%= result5[0][i].contact %>" /> &nbsp;
+                <span class="error" id="ref1phoneE"></span>
+                <label for="ref1rel">Relation : </label>
+                <input type="text" id="refrel" name="refrel[]" value="<%= result5[0][i].relation %>" />
+                <span class="error" id="ref1relE"></span>
+            </div>
+            <% } %>
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>PREFERENCES</legend>
+            <div>
+                <label for="ectc">Expected CTC : </label>
+                <input type="text" id="ectc" name="ectc" value="<%= result6[0][0].ectc %>" /> &nbsp;
+                <span class="error" id="ectcE"></span>
+                <label for="cctc">Current CTC : </label>
+                <input type="text" id="cctc" name="cctc" value="<%=result6[0][0].cctc%>" /> &nbsp;
+                <span class="error" id="cctcE"></span>
+            </div>
+            <div>
+                <label for="notice">Notice Period (in months): </label>
+                <input type="text" id="notice" name="notice" value="<%= result6[0][0].noticeperiod %>" />
+                <span class="error" id="noticeE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="location">Prefered Location : </label>
+                <select name="location" id="location">
+                    <option value="ahmedabad" <% result[0][0].location == "ahmedabad" ? 'selected' : '' %>>Ahmedabad</option>
+                    <option value="surat" <% result[0][0].location == "surat" ? 'selected' : '' %>>Surat</option>
+                    <option value="vadodara" <% result[0][0].location == "vadodara" ? 'selected' : '' %>>Vadodara</option>
+                    <option value="rajkot" <% result[0][0].location == "rajkot" ? 'selected' : '' %>>Rajkot</option>
+                </select>
+                &nbsp;
+                <label for="dept">Department : </label>
+                <select name="dept" id="dept">
+                    <option value="development" <% result[0][0].department == "development" ? 'selected' : '' %>>Development</option>
+                    <option value="designing" <% result[0][0].department == "designing" ? 'selected' : '' %>>Designing</option>
+                    <option value="hr" <% result[0][0].department == "hr" ? 'selected' : '' %>>HR</option>
+                    <option value="devops" <% result[0][0].department == "devops" ? 'selected' : '' %>>Devops</option>
+                </select>
+            </div>
+        </fieldset>
+
+        <input type="submit" value="Update" class="update"> &nbsp;
+        <input type="reset" class="reset">
+    </form>
+</body>
