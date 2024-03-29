@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color:beige
+        }
+        tr,td{
+            border: 1px solid black;
+            text-align: center;
+            background-color:blanchedalmond
+        }
+        table{
+            border-collapse: collapse;
+            width: 90%;
+            margin: auto;
+            margin-top: 40px;
+        }
+        .buttons{
+            /* text-align: center; */
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+      .button{
+        padding: 8px;
+        margin: 10px 10px;
+      }
+    </style>
+</head>
+<body onload="posts()">
+    <table id="table">
+    
+    </table>
+    <div class="buttons">
+    <input type="button" value="Previous" class="button" onclick="previous()">
+    <p id="pagenum"></p>
+    <input type="button" value="Next" class="button" onclick="next()">
+</div>
+    <script>
+            var number = 10 ;
+            var maximum = 0 ;
+
+
+        const posts = async ()=>{
+            let url = 'https://jsonplaceholder.typicode.com/posts'
+            let datas = await fetch(url) ;
+            let data = await datas.json()
+            let table = document.getElementById('table');
+            let pagenum = document.getElementById('pagenum');
+             maximum = data.length ;
+            console.log(data);
+        table.innerHTML = `   <tr>
+        <td>USER    ID</td>
+        <td>ID</td>
+        <td>TITLE</td>
+        <td>BODY</td>
+        <td>VIEW MORE</td>
+       </tr>`
+           data.slice(number-10,number).map((a)=>{
+                     table.innerHTML += 
+                     `<tr>
+                        <td>${a.userId}</td>
+                        <td>${a.id}</td>
+                        <td>${a.title}</td>
+                        <td>${a.body}</td>
+                        <td><a href="/posts/${a.userId}" >View More</a></td>
+                      </tr>`
+           })
+            pagenum.innerText = number/10 ;
+
+        }
+
+        const previous =  ()=>{
+            console.log(number)
+            if(number !=10)
+            {
+                number -= 10 ;
+                posts() ;
+            }
+        }
+
+        const next =  ()=>{
+            console.log(number);
+            if(number != maximum)
+            {
+                number += 10 ;
+                posts();
+            }
+        }
+    </script>
+</body>
+</html>

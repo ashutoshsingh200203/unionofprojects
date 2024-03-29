@@ -39,3 +39,19 @@ exports.ticTactoe = async (req,res) =>{
         console.log(error)
     }
 }
+
+exports.showPosts = async (req,res) => {
+    try {
+        res.sendFile(path.join(__dirname,"../../public","Async_Await","post.html"))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.showComments = async (req,res)=>{
+    try {
+        res.sendFile(path.join(__dirname,"../../public","Async_Await","personal.html"))
+    } catch (error) {
+        console.log(error)
+    }
+}
