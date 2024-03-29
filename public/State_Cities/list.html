@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<body onload="loadstates()">
+    <h2>Tomar Ashutoshsingh DEV089</h2>
+    <div class="container">
+        <div class="states">
+            <select name="states" id="states" onchange="loadcities(this.value)">
+                <option value="hello">Select</option>
+            </select>
+        </div>
+        <div class="cities">
+            <select name="cities" id="cities">
+                <option value="helove">Select</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        function loadstates() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                   
+                    const sta = document.getElementById('states');
+                    JSON.parse(this.response)[0].forEach(e =>{
+                        console.log(e)
+                        const options = document.createElement('option')
+                        options.setAttribute('value',`${e.id}`)
+                        options.innerHTML = `${e.name}`
+                        sta.appendChild(options);
+                    })
+                }
+            };
+            xhttp.open("GET", "/jstasks/states", true);
+            xhttp.send();
+        }
+
+        function loadcities(e) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    const sel = document.getElementById('cities')
+                    let child = sel.lastElementChild ;
+                    while(child)
+                    {
+                        sel.removeChild(child)
+                        child = sel.lastElementChild
+                    }
+                 
+                    JSON.parse(this.response)[0].forEach(e => {
+                        console.log(e)
+                        const opt1 = document.createElement('option');
+                        opt1.setAttribute('value' , `${e.id}`) ;
+                        opt1.innerHTML = `${e.city}`
+                        sel.appendChild(opt1);
+                    })
+
+                }
+            };
+            xhttp.open("GET", `/jstasks/cities/${e}`, true);
+            xhttp.send();
+        }
+    </script>
+</body>
+
+</html>
