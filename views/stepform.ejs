@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color:#f3f0e0;
+    }
+
+    .error {
+        color: red;
+        font-size: 10px;
+        margin-top: 5px;
+    }
+
+    input.invalid {
+        background-color: #ffdddd;
+    }
+
+    .tab {
+        display: none;
+        margin-top: 50px;
+        margin-left: 200px;
+        background-color: #ced4da;
+        border-radius: 20px;
+        width: 850px;
+        height: 350px;
+        padding: 15px;
+    }
+
+    input {
+        border-radius: 8px;
+        height: 20px;
+    }
+    .work{
+        padding: 15px;
+    
+    }
+    .buttons input{
+        width: 80px;
+        height: 35px;
+        font-size: 15px;
+        margin-right: 70px;
+        border: 1px solid black;
+        background-color:goldenrod;
+        margin-top: 60px;
+    }
+</style>
+
+<body>
+    <form id="regForm" name="regForm">
+        <h2 style="text-align: center;">Tomar Ashutoshsingh DEV089</h2>
+        <div class="tab">
+            <h3>Basic Details</h3>
+            <div>
+                <input type="hidden" value="<%= result[0][0].emp_id %>" name="id">
+                <div>
+                    <label for="lname">First Name :</label>
+                    <input type="text" id="fname" name="fname" value="<%= result[0][0].fname %>" /> &nbsp;
+                    <span class="error" id="fnameE"></span>
+
+                    <label for="lname">Last Name :</label>
+                    <input type="text" id="lname" name="lname" value="<%= result[0][0].lname %>" />
+                    <span class="error" id="lnameE"></span>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div>
+                    <label for="designation">Designation : </label>
+                    <input type="text" id="designation" name="designation" value="<%= result[0][0].designation %>" />
+                    &nbsp;
+                    <span class="error" id="designationE"></span>
+
+                    <label for="email">Email : </label>
+                    <input type="text" id="email" name="email" value="<%= result[0][0].email %>" />
+                    <span class="error" id="emailE"></span>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div>
+                    <label for="address1">Address 1 : </label>
+                    <input id="address1" name="address1" value="<%= result[0][0].address_1 %>"></input> &nbsp;
+                    <span class="error" id="address1E"></span>
+
+                    <label for="address2">Address 2 : </label>
+                    <input id="address2" name="address2" value="<%= result[0][0].address_2 %>"></input>
+                    <span class="error" id="address2E"></span>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div>
+                    <label for="phone">Phone : </label>
+                    <input type="text" name="phone" id="phone" value="<%= result[0][0].phone_number %>" /> &nbsp;
+                    <span class="error" id="phoneE"></span>
+
+                    Gender :
+                    <label for="male">Male </label>
+                    <input type="radio" id="male" value="Male" name="gender" <%=result[0][0].gender==='male' ? 'checked'
+                        : '' %> />
+                    <label for="female">Female </label>
+                    <input type="radio" id="female" value="female" name="gender" <%=result[0][0].gender==='female'
+                        ? 'checked' : '' %>/>
+                </div>
+            </div>
+            <br />
+            <div>
+                <label for="city">City : </label>
+                <input type="text" id="city" name="city" value="<%= result[0][0].city %>" /> &nbsp;
+                <span class="error" id="cityE"></span>
+                <label for="zipcode">Zipcode : </label>
+                <input type="text" id="zipcode" name="zipcode" value="<%= result[0][0].zipcode %>" />
+                <span class="error" id="zipcodeE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="status">Relationship Status</label>
+                <select id="status" name="relationship">
+                    <option value="single" value="<%= result[0][0].relationship === " single" ? 'selected' : '' %>"
+                        >Single</option>
+                    <option value="married" value="<%= result[0][0].relationship === " married" ? 'selected' : '' %>
+                        ">Married</option>
+                </select>
+                &nbsp;
+                <label for="state">State : </label>
+                <input id="state" name="state" type="text" value="<%= result[0][0].state %>" />
+                <span class="error" id="stateE"></span>
+            </div>
+        </div>
+
+
+        <div class="tab">
+            <h2>Educational Details</h2>
+            <input type="button" value="+" onclick="addedu()">
+            <input type="button" value="-" onclick="removeedu()">
+            <% for(let i=0 ;i<result1[0].length ; i++) { %>
+                <div class="edugroup">
+
+                    <div class="edu">
+                        <input type="hidden" value="<%= result1[0][i].id %>" name="eduid[]">
+                        <select name="education[]" id="education">
+                            <option value="">Select</option>
+                            <option value="ssc" <%=result1[0][i].education==="ssc" ? 'selected' : '' %>>SSC</option>
+                            <option value="hsc" <%=result1[0][i].education==="hsc" ? 'selected' : '' %>>HSC</option>
+                            <option value="bachelors" <%=result1[0][i].education==="bachelors" ? 'selected' : '' %>
+                                >Bachelors</option>
+                            <option value="masters" <%=result1[0][i].education==="masters" ?'selected' : '' %>>Masters
+                            </option>
+                            <option value="phd" <%=result1[0][i].education==="phd" ? 'selected' : '' %>>PHD</option>
+                        </select>
+                        <label for="year"> Passing Year : </label>
+                        <input type="text" cid="year" name="year[]" value="<%= result1[0][i].year %>" /> &nbsp;
+                        <!-- <span class="error" id="sscyearE"></span> -->
+                        <label for="percentage"> Percentage : </label>
+                        <input type="text" id="percentage" name="percentage[]" value="<%=result1[0][i].percentage %>" />
+                    </div>
+                    <span class="error" id="eduerror"></span>
+
+                </div>
+                <% } %>
+        </div>
+        <br />
+
+
+        <div class="tab">
+            <h2>Work Experience</h2>
+            <input type="button" value="+" onclick="addwork()">
+            <input type="button" value="-" onclick="removework()">
+            <% for(let i=0 ; i<result2[0].length ; i++) { %>
+                <div class="workgroup ">
+
+                    <div class="work">
+                        <input type="hidden" value="<%= result2[0][i].id %>" name="workid[]">
+                        <label for="compname">Company Name : </label>
+                        <input type="text" id="compname" name="compname[]" value="<%=result2[0][i].compname %>" />
+                   
+                        <label for="desig">Designaton : </label>
+                        <input type="text" id="desig" name="desig[]" value="<%=result2[0][i].designation %>" />
+                      <br>
+                        <label for="todate">To Date : </label>
+                        <input type="text" id="todate" name="todate[]"
+                            value="<%=result2[0][i] && result2[0][i].from_ && JSON.stringify(result2[0][i].from_ ).slice(1,11)%>" />
+                  
+                        <label for="fromdate">From Date : </label>
+                        <input type="text" id="fromdate" name="fromdate[]"
+                            value="<%=result2[0][i] && result2[0][i].to_ && JSON.stringify(result2[0][i].to_).slice(1,11) %>" />
+                    </div>
+                    <span class="error" id="workerror"></span>
+                </div>
+                <% } %>
+        </div>
+
+        <div class="tab">
+            <h2>Languages Known</h2>
+            <div>
+                <label for="hindi">Hindi</label>
+                <input type="checkbox" id="hindi" value="hindi" name="language[]" <%=hindi.length !=0 &&
+                    hindi[0].lang==="hindi" ? 'checked' : '' %> />
+                <label for="hread">Read</label>
+                <input type="checkbox" id="hread" value="read" name="hread" <%=hindi.length!=0 &&
+                    hindi[0].speak_===1? 'checked' : '' %> />
+                <label for="hspeak">Speak</label>
+                <input type="checkbox" id="hspeak" value="speak" name="hspeak" <%=hindi.length!=0 && hindi[0].read_===1
+                    ? 'checked' : '' %> />
+                <label for="hwrite">Write</label>
+                <input type="checkbox" id="hwrite" value="write" name="hwrite" <%=hindi.length!=0 && hindi[0].write_===1
+                    ? 'checked' : '' %> />
+                <span class="error" id="hindiE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="english">English</label>
+                <input type="checkbox" id="english" value="english" name="language[]" <%=english.length !=0 &&
+                    english[0].lang==="english" ? 'checked' : '' %> />
+                <label for="eread">Read</label>
+                <input type="checkbox" id="eread" value="read" name="eread" <%=english.length !=0 &&
+                    english[0].read_===1? 'checked' : '' %> />
+                <label for="espeak">Speak</label>
+                <input type="checkbox" id="espeak" value="speak" name="espeak" <%=english.length !=0 &&
+                    english[0].speak_===1? 'checked' : '' %> />
+                <label for="ewrite">Write</label>
+                <input type="checkbox" id="ewrite" value="write" name="ewrite" <%=english.length !=0 &&
+                    english[0].write_===1? 'checked' : '' %> />
+                <span class="error" id="englishE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="gujarati">Gujarati</label>
+                <input type="checkbox" id="gujarati" value="gujarati" name="language[]" <%=gujarati.length !=0 &&
+                    gujarati[0].lang==="gujarati" ? 'checked' : '' %> />
+                <label for="gread">Read</label>
+                <input type="checkbox" id="gread" value="read" name="gread" <%=gujarati.length !=0 &&
+                    gujarati[0].read_===1? 'checked' : '' %> />
+                <label for="gspeak">Speak</label>
+                <input type="checkbox" id="gspeak" value="speak" name="gspeak" <%=gujarati.length !=0 &&
+                    gujarati[0].speak_===1? 'checked' : '' %> />
+                <label for="gwrite">Write</label>
+                <input type="checkbox" id="gwrite" value="write" name="gwrite" <%=gujarati.length !=0 &&
+                    gujarati[0].write_===1? 'checked' : '' %> />
+                <span class="error" id="gujaratiE"></span>
+            </div>
+        </div>
+
+
+        <div class="tab">
+            <h2>References</h2>
+            <input type="button" value="+" onclick="addref()">
+            <input type="button" value="-" onclick="removeref()">
+            <% for(let i=0 ; i<result5[0].length ; i++) { %>
+                <div class="refgroup ">
+
+                    <div class="ref">
+                        <input type="hidden" value="<%= result5[0][i].id %>" name="refid[]">
+                        <label for="ref1name">Name : </label>
+                        <input type="text" id="refname" name="refname[]" value="<%= result5[0][i].name_ %>" /> &nbsp;
+                        <label for="ref1phone">Phone : </label>
+                        <input type="text" id="refphone" name="refphone[]" value="<%= result5[0][i].contact %>" />
+                        &nbsp;
+                        <label for="ref1rel">Relation : </label>
+                        <input type="text" id="refrel" name="refrel[]" value="<%= result5[0][i].relation %>" />
+                    </div>
+                    <span class="error" id="referror"></span>
+
+                </div>
+                <% } %>
+        </div>
+
+        <div class="tab">
+            <h2>Preferences</h2>
+            <div>
+                <label for="ectc">Expected CTC : </label>
+                <input type="text" id="ectc" name="ectc" value="<%= result6[0][0].ectc %>" />
+                &nbsp;
+                <span class="error" id="ectcE"></span>
+                <label for="cctc">Current CTC : </label>
+                <input type="text" id="cctc" name="cctc" value="<%=result6[0][0].cctc%>" />
+                &nbsp;
+                <span class="error" id="cctcE"></span>
+            </div>
+            <div>
+                <label for="notice">Notice Period (in months): </label>
+                <input type="text" id="notice" name="notice" value="<%= result6[0][0].noticeperiod %>" />
+                <span class="error" id="noticeE"></span>
+            </div>
+            <br />
+            <div>
+                <label for="location">Prefered Location : </label>
+                <select name="location" id="location">
+                    <option value="ahmedabad" <% result[0][0].location=="ahmedabad" ? 'selected' : '' %>>Ahmedabad
+                    </option>
+                    <option value="surat" <% result[0][0].location=="surat" ? 'selected' : '' %>
+                        >Surat</option>
+                    <option value="vadodara" <% result[0][0].location=="vadodara" ? 'selected' : '' %>>Vadodara</option>
+                    <option value="rajkot" <% result[0][0].location=="rajkot" ? 'selected' : '' %>>Rajkot</option>
+                </select>
+                &nbsp;
+                <label for="dept">Department : </label>
+                <select name="dept" id="dept">
+                    <option value="development" <% result[0][0].department=="development" ? 'selected' : '' %>
+                        >Development</option>
+                    <option value="designing" <% result[0][0].department=="designing" ? 'selected' : '' %>>Designing
+                    </option>
+                    <option value="hr" <% result[0][0].department=="hr" ? 'selected' : '' %>>HR
+                    </option>
+                    <option value="devops" <% result[0][0].department=="devops" ? 'selected' : '' %>>Devops</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="tab">
+            <h2>Technologies</h2>
+            <div>
+                <label for="php">PHP</label>
+                <input type="checkbox" id="php" value="php" name="tech[]" onchange='handlechange("php","phpspan")'
+                    <%=php.length !=0 && php[0].tech==="php" ? 'checked' : '' %>/>
+                    <span class="phpspan" style="visibility: hidden;">
+                <label for="phpbeg">Beginner</label>
+                <input type="radio" id="phpbeg" value="beginner" name="php" <%=php.length !=0 &&
+                    php[0].level==="beginner" ? 'checked' : '' %> />
+                <label for="phpmid">Mediator</label>
+                <input type="radio" id="phpmid" value="mediator" name="php" <%=php.length !=0 &&
+                    php[0].level==="mediator" ? 'checked' : '' %> />
+                <label for="phpex">Expert</label>
+                <input type="radio" id="phpex" value="expert" name="php" <%=php.length !=0 && php[0].level==="expert"
+                    ? 'checked' : '' %> />
+                <span class="error" id="phpE"></span>
+                    </span>
+            </div>
+            <br />
+            <div>
+                <label for="oracle">Oracle</label>
+                <input type="checkbox" id="oracle" value="oracle" name="tech[]"
+                    onchange="handlechange('oracle','oraclespan')" <%=oracle.length !=0 && oracle[0].tech==="oracle"
+                    ? 'checked' : '' %> />
+                    <span class="oraclespan" style="visibility: hidden;">
+                <label for="orbeg">Beginner</label>
+                <input type="radio" id="orbeg" value="beginner" name="oracle" <%=oracle.length !=0 &&
+                    oracle[0].level==="beginner" ? 'checked' : '' %> />
+                <label for="ormid">Mediator</label>
+                <input type="radio" id="ormid" value="mediator" name="oracle" <%=oracle.length !=0 &&
+                    oracle[0].level==="mediator" ? 'checked' : '' %> />
+                <label for="orex">Expert</label>
+                <input type="radio" id="orex" value="expert" name="oracle" <%=oracle.length !=0 &&
+                    oracle[0].level==="expert" ? 'checked' : '' %> />
+                <span class="error" id="oracleE"></span>
+                    </span>
+            </div>
+            <br />
+            <div>
+                <label for="mysql">Mysql</label>
+                <input type="checkbox" id="mysql" value="mysql" name="tech[]"
+                    onchange="handlechange('mysql','mysqlspan')" <%=mysql.length !=0 && mysql[0].tech==="mysql"
+                    ? 'checked' : '' %> />
+                    <span class="mysqlspan" style="visibility: hidden;">
+                <label for="sqlbeg">Beginner</label>
+                <input type="radio" id="sqlbeg" value="beginner" name="mysql" <%=mysql.length !=0 &&
+                    mysql[0].level==="beginner" ? 'checked' : '' %> />
+                <label for="sqlmid">Mediator</label>
+                <input type="radio" id="sqlmid" value="mediator" name="mysql" <%=mysql.length !=0 &&
+                    mysql[0].level==="mediator" ? 'checked' : '' %> />
+                <label for="sqlex">Expert</label>
+                <input type="radio" id="sqlex" value="expert" name="mysql" <%=mysql.length !=0 &&
+                    mysql[0].level==="expert" ? 'checked' : '' %> />
+                <span class="error" id="sqlE"></span>
+                    </span>
+            </div>
+            <br />
+            <div>
+                <label for="laravel">Laravel</label>
+                <input type="checkbox" id="laravel" value="laravel" onchange="handlechange('laravel','laravelspan')"
+                    name="tech[]" <%=laravel.length !=0 && laravel[0].tech==="laravel" ? 'checked' : '' %> />
+                    <span class="laravelspan" style="visibility: hidden;">
+                <label for="larbeg">Beginner</label>
+                <input type="radio" id="larbeg" value="beginner" name="laravel" <%=laravel.length !=0 &&
+                    laravel[0].level==="beginner" ? 'checked' : '' %>
+                />
+                <label for="larmid">Mediator</label>
+                <input type="radio" id="larmid" value="mediator" name="laravel" <%=laravel.length !=0 &&
+                    laravel[0].level==="mediator" ? 'checked' : '' %>
+                />
+                <label for="larex">Expert</label>
+                <input type="radio" id="larex" value="expert" name="laravel" <%=laravel.length !=0 &&
+                    laravel[0].level==="expert" ? 'checked' : '' %> />
+                <span class="error" id="laravelE"></span>
+                    </span>
+            </div>
+        </div>
+
+
+        <div style="overflow:auto;">
+            <div style="float:right;" class="buttons">
+                <input type="button" id="prevBtn" onclick="nextPrev(-1)" value="Previous"></input>
+                <input type="button" id="nextBtn" onclick="nextPrev(1)" value="Next"></input>
+                <% if(!result[0][0].fname) { %>
+                    <input type="button" id="submit" value="Submit" onclick="submitform()">
+                    <% } else { %>
+                        <input type="button" id="submit" value="Update" onclick="updateform()">
+                        <% } %>
+            </div>
+        </div>
+
+    </form>
+    <script>
+
+        async function submitform() {
+            if (!validateForm(currentTab)) return false;
+            let formdata = document.getElementById('regForm')
+            const details = new FormData(formdata);
+            const params = new URLSearchParams(details);
+            const jobdata = await new Response(params).text();
+            console.log(typeof (jobdata))
+
+            let data = await fetch("http://localhost:8989/save-form", {
+
+                method: "POST",
+                headers: {
+                    "Content-type": 'application/x-www-form-urlencoded'
+                },
+                body: jobdata
+            })
+            console.log(await data.json())
+            if(data.ok)
+            {
+                alert("Data Submitted Successfully");
+            }
+        }
+
+        async function updateform() {
+            if (!validateForm(currentTab)) return false;
+            let formdata = document.getElementById('regForm')
+            const details = new FormData(formdata);
+            const params = new URLSearchParams(details);
+            const jobdata = await new Response(params).text();
+            console.log(typeof (jobdata))
+
+            let data = await fetch("http://localhost:8989/save-update", {
+
+                method: "POST",
+                headers: {
+                    "Content-type": 'application/x-www-form-urlencoded'
+                },
+                body: jobdata
+            })
+            console.log(await data.json())
+        }
+
+        function handlechange(language, span) {
+            // console.log(language)
+            if (document.getElementById(language).checked) {
+                document.getElementsByClassName(span)[0].style.visibility = "visible";
+            }
+            else {
+                document.getElementsByClassName(span)[0].style.visibility = "hidden";
+            }
+        }
+
+        function addref() {
+            let refgroup = document.getElementsByClassName('refgroup')[0];
+            const inputs = refgroup.lastElementChild.getElementsByTagName('input');
+            console.log(refgroup.lastElementChild)
+            if (refgroup.lastElementChild) {
+                for (let i = 1; i < inputs.length; i++) {
+
+                    if (inputs[i].value == '') {
+                        document.getElementById('referror').innerHTML = "please fill the fields"
+                        return false;
+                    }
+                    else if (!/^[a-zA-Z0-9.-\s]*$/.test(inputs[i].value)) {
+                        document.getElementById('referror').innerHTML = "fill values"
+                        return false;
+                    }
+                }
+            }
+            let ref = document.getElementsByClassName('ref')[0];
+
+            let refclone = ref.cloneNode(true);
+            refgroup.appendChild(refclone);
+        }
+
+        function removeref() {
+            let refgroup = document.getElementsByClassName('refgroup')[0];
+            let reflength = document.querySelectorAll('.ref').length;
+
+            if (reflength > 1) {
+                refgroup.removeChild(refgroup.lastElementChild)
+            }
+        }
+        function addwork() {
+            let work = document.getElementsByClassName('work')[0];
+            let workgroup = document.getElementsByClassName('workgroup')[0];
+            const inputs = workgroup.lastElementChild.getElementsByTagName('input');
+            console.log(workgroup.lastElementChild)
+            if (workgroup.lastElementChild) {
+                for (let i = 1; i < inputs.length; i++) {
+
+                    if (inputs[i].value == '') {
+                        document.getElementById('workerror').innerHTML = "please fill the fields"
+                        return false;
+                    }
+                    else if (!/^[a-zA-Z0-9.-\s]*$/.test(inputs[i].value)) {
+                        document.getElementById('workerror').innerHTML = "fill values"
+                        return false;
+                    }
+                }
+            }
+            let clonework = work.cloneNode(true);
+
+            workgroup.appendChild(clonework);
+            // workgroup[0].appendChild(work[0])
+        }
+        function removework() {
+            let workgroup = document.getElementsByClassName('workgroup')[0];
+            let worklength = document.querySelectorAll('.work').length;
+            console.log(worklength);
+            console.log(workgroup)
+            if (worklength > 1) {
+                workgroup.removeChild(workgroup.lastElementChild);
+            }
+        }
+
+        function addedu() {
+            let edugroup = document.getElementsByClassName('edugroup')[0];
+            const inputs = edugroup.lastElementChild.getElementsByTagName('input');
+            console.log(edugroup.lastElementChild)
+            if (edugroup.lastElementChild) {
+                for (let i = 1; i < inputs.length; i++) {
+
+                    if (inputs[i].value == '') {
+                        document.getElementById('eduerror').innerHTML = "please fill the fields"
+                        return false;
+                    }
+                    else if (!/^\d+/.test(inputs[i].value)) {
+                        document.getElementById('eduerror').innerHTML = "fill values"
+                        return false;
+                    }
+                }
+            }
+            let edu = document.getElementsByClassName('edu')[0];
+            let cloneedu = edu.cloneNode(edu);
+
+            edugroup.appendChild(cloneedu)
+        }
+
+        function removeedu() {
+            let edugroup = document.getElementsByClassName('edugroup')[0];
+            let edulength = document.querySelectorAll('.edu').length;
+            if (edulength > 1) {
+                edugroup.removeChild(edugroup.lastElementChild)
+            }
+        }
+
+
+        var currentTab = 0;
+        showTab(currentTab);
+
+        function showTab(n) {
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            document.getElementById('submit').style.display = "none";
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById('submit').style.display = "inline";
+
+            } else {
+                document.getElementById("nextBtn").style.display = "inline";
+            }
+        }
+
+        function nextPrev(n) {
+            if (n == 1 && !validateForm(currentTab)) return false;
+            var x = document.getElementsByClassName("tab");
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+            showTab(currentTab);
+        }
+
+        function validateForm() {
+            let inputs = document.getElementsByTagName('input');
+            console.log(inputs);
+            // console.log(inputs[0])
+
+            let isValid = true;
+            // console.log(inputs);
+            for (let i = 0; i < inputs.length; i++) {
+
+                if (currentTab === 0) {
+                    if (inputs[i].name === "fname") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("fnameE").innerText = "enter values"
+                            isValid = false;
+                        }
+                        else if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                            document.getElementById("fnameE").innerText = "put valid values"
+                            isValid = false;
+                        }
+
+                    }
+                    if (inputs[i].name === "lname") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("lnameE").innerText = "enter values"
+                            isValid = false;
+                        }
+                        else if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                            document.getElementById("lnameE").innerText = "put valid values"
+                            isValid = false;
+                        }
+                    }
+                    if (inputs[i].name === "designation") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("designationE").innerText = "enter values"
+                            isValid = false;
+                        }
+                        else if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                            document.getElementById("designationE").innerText = "put valid values"
+                            isValid = false;
+                        }
+                    }
+                    if (inputs[i].name === "email") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("emailE").innerText = "enter values"
+                            isValid = false;
+                        }
+                        else if (!/^[^\s@]+@[^\s]+\.[^\s@]+$/.test(inputs[i].value)) {
+                            document.getElementById("emailE").innerText = "put valid values"
+                            isValid = false;
+                        }
+                    }
+                    if (inputs[i].name === "address1") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("address1E").innerText = "enter values"
+                            isValid = false;
+                        }
+
+                    }
+                    if (inputs[i].name === "address2") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("address2E").innerText = "enter values"
+                            isValid = false;
+                        }
+
+                    }
+                    if (inputs[i].name === "phone") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("phoneE").innerText = "enter values"
+                            isValid = false;
+                        }
+                        if (!/^\d{10}$/.test(inputs[i].value)) {
+                            document.getElementById("phoneE").innerText = "put valid values"
+                            isValid = false;
+                        }
+                    }
+                    if (inputs[i].name === "city") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("cityE").innerText = "enter values"
+                            isValid = false;
+                        }
+                        if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                            document.getElementById("cityE").innerText = "put valid values"
+                            isValid = false;
+                        }
+                    }
+                    if (inputs[i].name === "zipcode") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("zipcodeE").innerText = "enter values"
+                            isValid = false;
+                        }
+                        else if (!/^[1-9][0-9]{5}$/.test(inputs[i].value)) {
+                            document.getElementById("zipcodeE").innerText = "put valid values"
+                            isValid = false;
+                        }
+                    }
+                    if (inputs[i].name === "state") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("stateE").innerText = "enter values"
+                            isValid = false;
+
+                        }
+                        if (!/^[a-zA-Z\s]*$/.test(inputs[i].value)) {
+                            document.getElementById("stateE").innerText = "put valid values"
+                            isValid = false;
+
+                        }
+                    }
+                }
+
+
+                if (currentTab === 3) {
+                    if (inputs[i].name === "language[]") {
+                        if (document.getElementById("hindi").checked) {
+                            if (!(document.getElementById('hread').checked || document.getElementById('hwrite').checked || document.getElementById('hspeak').checked)) {
+                                document.getElementById('hindiE').innerText = "Please select your  proficiency ";
+                                isValid = false;
+                            }
+
+                        }
+                        if (!document.getElementById("hindi").checked) {
+                            if (document.getElementById('hread').checked || document.getElementById('hwrite').checked || document.getElementById('hspeak').checked) {
+                                document.getElementById('hindiE').innerText = "Please select the language ";
+                                isValid = false;
+                            }
+
+                        }
+                    }
+                    if (inputs[i].name === "language[]") {
+                        if (document.getElementById("gujarati").checked) {
+                            if (!(document.getElementById('gread').checked || document.getElementById('gwrite').checked || document.getElementById('gspeak').checked)) {
+                                document.getElementById('gujaratiE').innerText = "Please select your proficiency ";
+                                isValid = false;
+                            }
+
+                        }
+                        if (!document.getElementById("gujarati").checked) {
+                            if (document.getElementById('gread').checked || document.getElementById('gwrite').checked || document.getElementById('gspeak').checked) {
+                                document.getElementById('gujaratiE').innerText = "Please select the language ";
+                                isValid = false;
+                            }
+
+                        }
+                    }
+                    if (inputs[i].name === "language[]") {
+                        if (document.getElementById("english").checked) {
+                            if (!(document.getElementById('eread').checked || document.getElementById('ewrite').checked || document.getElementById('espeak').checked)) {
+                                document.getElementById('englishE').innerText = "Please select your proficiency ";
+                                isValid = false;
+                            }
+
+                        }
+                        if (!document.getElementById("english").checked) {
+                            if (document.getElementById('eread').checked || document.getElementById('ewrite').checked || document.getElementById('espeak').checked) {
+                                document.getElementById('englishE').innerText = "Please select the language ";
+                                isValid = false;
+                            }
+
+                        }
+                    }
+                }
+
+                if (currentTab === 5) {
+
+                    if (inputs[i].name === "ectc") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("ectcE").innerText = "Please enters the characters in it"
+                            isValid = false;
+                        }
+
+
+                    }
+                    if (inputs[i].name === "cctc") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("cctcE").innerText = "Please enters the characters in it"
+                            isValid = false;
+                        }
+
+
+                    }
+                    if (inputs[i].name === "notice") {
+                        if (inputs[i].value === "") {
+                            document.getElementById("noticeE").innerText = "Please enters the characters in it"
+                            isValid = false;
+                        }
+
+                    }
+                }
+            }
+            console.log(isValid)
+            return isValid
+        }
+    </script>
+</body>
+
+</html>

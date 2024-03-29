@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        tr{
+            border: 1px solid white ;
+background-color:darkkhaki;        }
+        td{
+            border: 1px solid black;
+            width: 150px;
+            height: 40px;
+            text-align: center;
+        }
+        .header{
+              background-color: cadetblue;
+        }
+        table{
+            border-collapse: collapse;
+            margin: auto;
+            margin-top: 50px;
+        }
+        body{
+            background-color:#f3f0e0;
+        }
+        a{
+            color:blueviolet
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Tomar Ashutoshsingh DEV089</h2>
+      <table>
+        <tr class="header">
+            <td>ID</td>
+            <td>Name</td>
+            <td>Update Data</td>
+        </tr>
+        <% for(let i=0 ; i<empdata[0].length ; i++) { %>
+        <tr>
+            <td><%=empdata[0][i].emp_id %></td>
+            <td><%=empdata[0][i].fname %></td>
+            <td><a href="/ajax/updatestep/?id=<%= empdata[0][i].emp_id  %>" >Update</a></td>
+        </tr>
+        <% } %>
+      </table>
+</body>
+</html>

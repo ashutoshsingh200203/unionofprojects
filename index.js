@@ -11,6 +11,7 @@ const login = require('./src/routes/auth')
 const jstasks = require('./src/routes/jstask')
 const sqltasks = require('./src/routes/sqltasks')
 const formcrud = require('./src/routes/formcrud')
+const ajaxform = require('./src/routes/ajaxform')
 
 app.use(cookieparser())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +20,8 @@ app.use("/",login)
 app.use("/jstasks",jstasks)
 app.use('/sqltasks',sqltasks)
 app.use('/formcrud',formcrud)
+app.use('/ajax',ajaxform)
+
 app.set('view engine', 'ejs');
 
 // app.get("/", async (req, res) => {
