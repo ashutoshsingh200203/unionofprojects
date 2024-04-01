@@ -5,21 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanks Page</title>
     <style>
+        tr{
+            border: 1px solid white ;
+background-color:darkkhaki;        }
+        td{
+            border: 1px solid black;
+            width: 250px;
+            height: 40px;
+            text-align: center;
+        }
+        .header{
+              background-color: cadetblue;
+        }
+        table{
+            border-collapse: collapse;
+            margin: auto;
+            margin-top: 50px;
+        }
+        body{
+            background-color:#f3f0e0;
+        }
+        a{
+            color:blueviolet
+        }
         h2{
             text-align: center;
         }
-        tr,td{
-            border: 1px solid black ;;
-        }
-        table{
-            margin: auto;
-            border-collapse: collapse;
+        #logout{
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            float: right;
+            text-decoration: none;
+
         }
     </style>
 </head>
 <body>
+    <h2>Tomar Ashutoshsingh DEV089</h2>
     <h2>Welcome to home page</h2>
+    <a href="/logout" id="logout">Logout</a>
     <table>
+        <tr class="header">
+            <td>Name of tasks</td>
+            <td>View</td>
+        </tr>
         <tr>
             <td>Event Table</td>
             <td><a href="jstasks/eventtable">Go</a></td>
@@ -81,6 +112,5 @@
             <td><a href="/ajax">Go</a></td>
         </tr>
     </table>
-    <a href="/logout">Logout</a>
 </body>
 </html>
