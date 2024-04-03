@@ -31,12 +31,8 @@ exports.saveRegister = async (req, res) => {
             counter += 1;
         }
 
-        // console.log(salt);
-        // console.log(accesskey)
 
         let salt = salt1.slice(0, 4);
-
-
 
         let query = `insert into users (fname,lname,email,salt,accesskey) values (?,?,?,?,?)`
         let result = await conn.promise().query(query, [fname, lname, email, salt, accesskey])

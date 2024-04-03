@@ -12,4 +12,6 @@ const conn = sql.createConnection({
     if(err) console.log(err) ;
   })
 
+  
+
   module.exports = conn ;

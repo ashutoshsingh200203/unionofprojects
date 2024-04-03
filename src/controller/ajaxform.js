@@ -261,26 +261,7 @@ exports.saveStep = async (req,res)=>{
             }
         }
     
-        // for(let i=0 ; i<language.length ; i++)
-        // {
-        //     if(language[i] == "hindi")
-        //     {
-        //         let query7 = `update languages2 set speak_ = '${hspeak} , read_ = ${hread} , write_ = ${hwrite} where empid=${empid} and lang = 'hindi' `
-        //         await conn.promise().query(query7);
-        //     }
-        //     if(language[i] == "gujarati")
-        //     {
-        //         let query7 = `update languages2 set speak_ = ${gspeak} , read_ = ${gread} , write_ = ${gwrite} where empid=${empid} and lang = 'gujarati' `
-        //         await conn.promise().query(query7);
-        //     }
-        //     if(language[i] == "english")
-        //     {
-        //         let query7 = `update languages2 set speak_ = ${espeak} , read_ = ${eread} , write_ = ${ewrite} where empid=${empid} and lang = 'english' `
-        //         await conn.promise().query(query7);
-        //     }
-        // }
-    
-    
+
         language.forEach(async e => {
             if(e === "hindi")
             {

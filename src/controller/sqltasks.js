@@ -84,7 +84,6 @@ exports.fullProfile = async (req, res) => {
 
         conn.query(sql, (err, result) => {
             let sql2 = `select count(stud_status) as present,monthname(dop) as month  from attendance where id = 1 and stud_status='p' group by id,month`
-            // select count(stud_status) as present,monthname(dop) as month  from attendance where id = 1 and stud_status="p" group by id,month ;
 
             conn.query(sql2, (err, result2) => {
                 if (err)
@@ -222,9 +221,6 @@ exports.delimeterSearch = async (req, res) => {
     try {
         let delimeter2 = req.query.delimeter;
         let delimeter = req.query.delimeter + "$";
-        // console.log(delimeter);
-        // var arr = delimeter.split(/[_^${}]/)
-        // console.log(arr);
         let fname = [];
         let lname = [];
         let state = [];

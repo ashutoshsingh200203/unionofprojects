@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const conn = require('./src/config/connection');
+require('./src/config/connection');
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const cookieparser = require('cookie-parser');
 require('dotenv').config();
+
 
 const login = require('./src/routes/auth')
 const jstasks = require('./src/routes/jstask')

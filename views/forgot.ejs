@@ -94,7 +94,6 @@
                                 body: forgotdata
                             })
                             let final = await data.json();
-                            // document.getElementById('error').innerHTML = `${final.msg}`
                             console.log(final);
                             document.getElementById('link').innerHTML = `<a href='${final.msg}' > ${final.msg} </a>`
                     
