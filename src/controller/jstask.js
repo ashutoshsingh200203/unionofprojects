@@ -11,7 +11,7 @@ exports.eventTable = async (req,res) =>{
 
 exports.kukuCube = async (req,res) =>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","Kuku_Cube","updatedkukucube.html"))
+        res.sendFile(path.join(__dirname,"../../public","KukuCube","updatedkukucube.html"))
     } catch (error) {
         console.log(error)
     }
@@ -19,7 +19,7 @@ exports.kukuCube = async (req,res) =>{
 
 exports.rowColumn = async (req,res) =>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","Row_Column","task1feb(row&column).html"))
+        res.sendFile(path.join(__dirname,"../../public","RowColumn","task1feb(row&column).html"))
     } catch (error) {
         console.log(error)
     }
@@ -35,7 +35,7 @@ exports.sortingTask = async (req,res) =>{
 
 exports.ticTactoe = async (req,res) =>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","tictactoe","tictac.html"))
+        res.sendFile(path.join(__dirname,"../../public","TicTacToe","tictac.html"))
     } catch (error) {
         console.log(error)
     }
@@ -43,7 +43,7 @@ exports.ticTactoe = async (req,res) =>{
 
 exports.showPosts = async (req,res) => {
     try {
-        res.sendFile(path.join(__dirname,"../../public","Async_Await","post.html"))
+        res.sendFile(path.join(__dirname,"../../public","AsyncAwait","post.html"))
     } catch (error) {
         console.log(error)
     }
@@ -51,7 +51,7 @@ exports.showPosts = async (req,res) => {
 
 exports.showComments = async (req,res)=>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","Async_Await","personal.html"))
+        res.sendFile(path.join(__dirname,"../../public","AsyncAwait","personal.html"))
     } catch (error) {
         console.log(error)
     }
@@ -59,7 +59,7 @@ exports.showComments = async (req,res)=>{
 
 exports.statesCities = async (req,res)=>{
     try {
-        res.sendFile(path.join(__dirname,'../../public','State_Cities','list.html'))
+        res.sendFile(path.join(__dirname,'../../public','StateCities','list.html'))
     } catch (error) {
         console.log(error)
     }
