@@ -21,6 +21,7 @@ exports.stepEmplist = async (req,res)=>{
 
 exports.saveStep = async (req,res)=>{
     try {
+        console.log('hello')
         let {tech,php,oracle,mysql,laravel} = req.body ;
         let {language,hread,hwrite,hspeak,gwrite,gspeak,gread,ewrite,espeak,eread} = req.body ;
         let {fname,lname,designation,email,address1,address2,city,state,zipcode,phone,relationship,gender} = req.body ;
@@ -33,30 +34,34 @@ exports.saveStep = async (req,res)=>{
          let query1 = `insert into basic_details2 (fname,lname,designation,email,phone_number,address_1,address_2,city,state,zipcode,relationship,gender) values (?,?,?,?,?,?,?,?,?,?,?,?)`
          let basic = await conn.promise().query(query1,[fname,lname,designation,email,phone,address1,address2,city,state,zipcode,relationship,gender]) ;
          let insertedId =  basic[0].insertId ;
-
+          
+         
          let query = `insert into edu2 (empid,education,year,percentage) values (?,?,?,?)` 
          for(let i = 0 ;i<education.length ; i++)
          {
-             await conn.promise().query(query,[insertedId,education[i],year[i],percentage[i]]);
+            if(education[i] && year[i] && percentage[i]) await conn.promise().query(query,[insertedId,education[i],year[i],percentage[i]]);
          }
 
          let query5 = `insert into experience2 (emp_id,compname,designation, from_,to_) values (?,?,?,?,?)`
          for(let i=0 ; i<compname.length ; i++)
          {
-             await conn.promise().query(query5,[insertedId,compname[i],desig[i],todate[i],fromdate[i]])
+            if(compname[i]&&desig[i]&&todate[i]&&fromdate[i]) await conn.promise().query(query5,[insertedId,compname[i],desig[i],todate[i],fromdate[i]])
          }
 
          let query4 = `insert into references2 (emp_id,name_,contact,relation) values (?,?,?,?)` 
          for(let i=0 ; i<refname.length ; i++)
          {
-            await conn.promise().query(query4,[insertedId,refname[i],refphone[i],refrel[i]]);
+            if(refname[i]&&refphone[i]&&refrel[i]) await conn.promise().query(query4,[insertedId,refname[i],refphone[i],refrel[i]]);
          }
 
          let query3 = `insert into preferences2 (empid,noticeperiod, location,ectc,cctc,department) values (?,?,?,?,?,?)`
          await conn.promise().query(query3,[insertedId,notice,location,ectc,cctc,dept])    
 
+        
+        // if(language.length !== 0){
 
-        language.forEach(async e => {
+        
+     language &&   language.forEach(async e => {
             if(e === "hindi")
             {
                 if(hread)hread = 1 
@@ -113,7 +118,7 @@ exports.saveStep = async (req,res)=>{
             }
          });
 
-        tech.forEach(async e => {
+       tech && tech.forEach(async e => {
             if(e === "php")
             {
                 let techquery1 = `insert into techno2 (empid,tech,level) values (${insertedId},"php","${php}")`
@@ -165,7 +170,7 @@ exports.updateStep = async (req,res)=>{
        let result4 = await conn.promise().query(query4);
     
     
-       console.log(result1);
+       console.log(result6);
        result3[0].forEach(e =>{
         if(e.lang === "hindi") hindi.push(e) ;
         if(e.lang === "english") english.push(e);
@@ -184,7 +189,7 @@ exports.updateStep = async (req,res)=>{
     }
 }
 
-exports.saveStep = async (req,res)=>{
+exports.saveStepupdate = async (req,res)=>{
     try {
         let empid = req.body.id ;
 
@@ -196,7 +201,7 @@ exports.saveStep = async (req,res)=>{
         let {ectc,cctc,notice,location,dept} = req.body ;
         let {compname,desig,todate,fromdate,workid} = req.body ;
         let {education,year,percentage,eduid} = req.body ;
-        console.log(eduid)
+        console.log(req.body)
     
         let query1 = `update basic_details2 set fname = '${fname}',lname = '${lname}' , designation = '${designation}' , email = '${email}' , address_1 = '${address1}' ,
         address_2 = '${address2}' , city = '${city}' , state = '${state}' , zipcode = '${zipcode}' , phone_number = '${phone}' , relationship = '${relationship}' , gender = '${gender}' where emp_id = ${empid} `

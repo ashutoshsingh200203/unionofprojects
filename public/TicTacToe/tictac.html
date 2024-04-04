@@ -42,6 +42,13 @@
             background-color: antiquewhite;
             font-size: 20px;
         }
+        .restart{
+            height: 35px;
+            width: 80px;
+            margin-top: 20px;
+            background-color: antiquewhite;
+            font-size: 20px;
+        }
 
         .submit {
             height: 35px;
@@ -84,6 +91,7 @@
         </div>
     </div>
     <button class="reset">Reset</button>
+    <button class="restart">Restart</button>
     <script>
         body = document.getElementsByTagName("body");
         // cells = document.querySelectorAll(".cell");
@@ -91,7 +99,7 @@
         let message = document.getElementById("mess");
         let msgcont = document.querySelector(".mescont");
         let rst = document.getElementsByClassName("reset");
-        let restart = document.getElementsByClassName("start");
+        let restart = document.getElementsByClassName("restart");
         console.log(rst)
 
         // console.log(body);
@@ -109,19 +117,6 @@
             [2, 5, 8],
             [0, 4, 8],
             [2, 4, 6]];
-
-        /* if use query selector method in DOM then only this below foreach 
-        method is usable because it return a node list in response */
-
-        // cells.forEach((cell) => {
-        //     cell.addEventListener("click",()=>{
-        //         if(turn)
-        //         {
-        //             cell.innerText = "0";
-        //         }
-        //     })
-        // })
-
 
 
         const reset = () => {

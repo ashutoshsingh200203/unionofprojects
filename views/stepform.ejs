@@ -159,8 +159,8 @@
                         <!-- <span class="error" id="sscyearE"></span> -->
                         <label for="percentage"> Percentage : </label>
                         <input type="text" id="percentage" name="percentage[]" value="<%=result1[0][i].percentage %>" />
+                        <span class="error" id="eduerror"></span>
                     </div>
-                    <span class="error" id="eduerror"></span>
 
                 </div>
                 <% } %>
@@ -190,8 +190,8 @@
                         <label for="fromdate">From Date : </label>
                         <input type="text" id="fromdate" name="fromdate[]"
                             value="<%=result2[0][i] && result2[0][i].to_ && JSON.stringify(result2[0][i].to_).slice(1,11) %>" />
+                            <span class="error" id="workerror"></span>
                     </div>
-                    <span class="error" id="workerror"></span>
                 </div>
                 <% } %>
         </div>
@@ -264,8 +264,8 @@
                         &nbsp;
                         <label for="ref1rel">Relation : </label>
                         <input type="text" id="refrel" name="refrel[]" value="<%= result5[0][i].relation %>" />
+                        <span class="error" id="referror"></span>
                     </div>
-                    <span class="error" id="referror"></span>
 
                 </div>
                 <% } %>
@@ -416,7 +416,7 @@
             const jobdata = await new Response(params).text();
             console.log(typeof (jobdata))
 
-            let data = await fetch("http://localhost:8989/save-form", {
+            let data = await fetch("http://localhost:5900/ajax/savestep", {
 
                 method: "POST",
                 headers: {
@@ -439,7 +439,7 @@
             const jobdata = await new Response(params).text();
             console.log(typeof (jobdata))
 
-            let data = await fetch("http://localhost:8989/save-update", {
+            let data = await fetch("http://localhost:5900/ajax/savestepupdate", {
 
                 method: "POST",
                 headers: {
