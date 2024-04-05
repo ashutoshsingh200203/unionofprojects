@@ -114,14 +114,14 @@ exports.dynamicQuery = async (req, res) => {
                     console.log(result2.length);
                     console.log(pages);
                     conn.query(sql, (err, result) => {
-                        if (err) console.log(err);
+                        if (err) {
+                            res.render('showerror', {error : err})
+                            console.log(err);
+                        }
                         else {
                             res.render('final', { result, l, sql2, pages });
                         }
-
                     })
-
-
                 }
             })
         }

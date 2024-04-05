@@ -314,7 +314,7 @@
                 for (let i = 0; i < inputs.length; i++) {
 
                     if (inputs[i].value == '') {
-                        document.getElementById('referror').innerHTML = "please fill the fields"
+                        document.getElementById('referror').innerHTML = "please fill the fields or correct value"
                         return false;
                     }
                     else if (!/^[a-zA-Z0-9.-\s]*$/.test(inputs[i].value)) {

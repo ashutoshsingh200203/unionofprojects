@@ -161,7 +161,6 @@ exports.doGenerate = async (req, res) => {
 
         let query = `select * from users where accesskey = '${accesskey}'`
         let query1 = `update users set accesskey = '${accesskey2}' , created_at = now() where accesskey = '${accesskey}'`
-        let query2 = `select * from users where `
 
         let result = await conn.promise().query(query1);
 
