@@ -1,5 +1,5 @@
-const express = require('express');
-const { studentData, attendanceGrid, examData, fullProfile, dynamicQuery, orderbyUi, advancedSearch, delimeterSearch } = require('../controller/sqltasks');
+import express from 'express'
+import {studentData, attendanceGrid, examData, fullProfile, dynamicQuery, orderbyUi, advancedSearch, delimeterSearch } from '../controller/sqltasks'
 const router = express.Router();
 
 router.route('/studentdata').get(studentData);

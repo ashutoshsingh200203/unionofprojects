@@ -1,7 +1,9 @@
-const path = require('path')
-const conn = require('../config/connection')
+// const path = require('path')
+import path from 'path'
+import conn from '../config/connection'
+import {Request,Response} from 'express'
 
-exports.eventTable = async (req,res) =>{
+export const eventTable = async (req : Request,res : Response) =>{
     try {
         res.sendFile(path.join(__dirname,"../../public","EventTable","eventtable.html"))
     } catch (error) {
@@ -9,7 +11,7 @@ exports.eventTable = async (req,res) =>{
     }
 }
 
-exports.kukuCube = async (req,res) =>{
+export const kukuCube = async (req: Request,res : Response) =>{
     try {
         res.sendFile(path.join(__dirname,"../../public","KukuCube","updatedkukucube.html"))
     } catch (error) {
@@ -17,7 +19,7 @@ exports.kukuCube = async (req,res) =>{
     }
 }
 
-exports.rowColumn = async (req,res) =>{
+export const rowColumn = async (req: Request,res : Response) =>{
     try {
         res.sendFile(path.join(__dirname,"../../public","RowColumn","task1feb(row&column).html"))
     } catch (error) {
@@ -25,7 +27,7 @@ exports.rowColumn = async (req,res) =>{
     }
 }
 
-exports.sortingTask = async (req,res) =>{
+export const sortingTask = async (req: Request,res : Response) =>{
     try {
         res.sendFile(path.join(__dirname,"../../public","Sorting","sorting1.html"))
     } catch (error) {
@@ -33,7 +35,7 @@ exports.sortingTask = async (req,res) =>{
     }
 }
 
-exports.ticTactoe = async (req,res) =>{
+export const ticTactoe = async (req: Request,res : Response) =>{
     try {
         res.sendFile(path.join(__dirname,"../../public","TicTacToe","tictac.html"))
     } catch (error) {
@@ -41,7 +43,7 @@ exports.ticTactoe = async (req,res) =>{
     }
 }
 
-exports.showPosts = async (req,res) => {
+export const showPosts = async (req: Request,res : Response) => {
     try {
         res.sendFile(path.join(__dirname,"../../public","AsyncAwait","post.html"))
     } catch (error) {
@@ -49,7 +51,7 @@ exports.showPosts = async (req,res) => {
     }
 }
 
-exports.showComments = async (req,res)=>{
+export const showComments = async (req: Request,res : Response)=>{
     try {
         res.sendFile(path.join(__dirname,"../../public","AsyncAwait","personal.html"))
     } catch (error) {
@@ -57,7 +59,7 @@ exports.showComments = async (req,res)=>{
     }
 }
 
-exports.statesCities = async (req,res)=>{
+export const statesCities = async (req: Request,res : Response)=>{
     try {
         res.sendFile(path.join(__dirname,'../../public','StateCities','list.html'))
     } catch (error) {
@@ -65,7 +67,7 @@ exports.statesCities = async (req,res)=>{
     }
 }
 
-exports.showStates = async (req,res)=>{
+export const showStates = async (req: Request,res : Response)=>{
     try {
         let query = `select * from states ;`
         let result =  await conn.promise().query(query) ;
@@ -76,7 +78,7 @@ exports.showStates = async (req,res)=>{
     }
 }
 
-exports.showCities = async (req,res)=>{
+export const showCities = async (req: Request,res : Response)=>{
     try {
         let cres = await conn.promise().query(`select * from cities where state_id = ${req.params.state_id}`);
         console.log(cres)

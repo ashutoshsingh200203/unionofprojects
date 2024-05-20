@@ -1,6 +1,11 @@
-const conn = require("../config/connection");
+import conn from '../config/connection' ;
+import {Request,Response} from 'express' ;
 
-exports.showStep = async (req,res) =>{
+interface Insert {
+    insertId : number ;
+}
+
+export const showStep = async (req : Request,res : Response) =>{
     try {
         let result = [[{}]] , result6 = [[{}]] ,result5 = [[{}]] ,result2 = [[{}]] , result1 = [[{}]] , result3 = [[{}]] , result4 = [[{}]] , hindi = [] , english = [] , gujarati = [] , php = [] , mysql = [] , laravel = []  , oracle = []
     res.render('stepform',{result,result1,result2,result5,result6,result3,hindi,english,gujarati,result4,php,oracle,laravel,mysql});
@@ -9,7 +14,7 @@ exports.showStep = async (req,res) =>{
     }
 }
 
-exports.stepEmplist = async (req,res)=>{
+export const stepEmplist = async (req : Request,res : Response)=>{
     try {
         let query = `select * from basic_details2`
         const empdata =  await conn.promise().query(query);
@@ -19,7 +24,7 @@ exports.stepEmplist = async (req,res)=>{
     }
 }
 
-exports.saveStep = async (req,res)=>{
+export const saveStep = async (req : Request,res : Response)=>{
     try {
         console.log('hello')
         let {tech,php,oracle,mysql,laravel} = req.body ;
@@ -33,7 +38,7 @@ exports.saveStep = async (req,res)=>{
 
          let query1 = `insert into basic_details2 (fname,lname,designation,email,phone_number,address_1,address_2,city,state,zipcode,relationship,gender) values (?,?,?,?,?,?,?,?,?,?,?,?)`
          let basic = await conn.promise().query(query1,[fname,lname,designation,email,phone,address1,address2,city,state,zipcode,relationship,gender]) ;
-         let insertedId =  basic[0].insertId ;
+         let insertedId =  (basic[0] as Insert).insertId ;
           
          
          let query = `insert into edu2 (empid,education,year,percentage) values (?,?,?,?)` 
@@ -145,7 +150,7 @@ exports.saveStep = async (req,res)=>{
     }
 }
 
-exports.updateStep = async (req,res)=>{
+export const updateStep = async (req : Request,res : Response)=>{
     try {
         let requestId = req.query.id ; 
         console.log(req.body) ;
@@ -166,12 +171,12 @@ exports.updateStep = async (req,res)=>{
        let result2 = await conn.promise().query(query2);
        let result5 = await conn.promise().query(query5);
        let result6 = await conn.promise().query(query6);
-       let result3 = await conn.promise().query(query3);
-       let result4 = await conn.promise().query(query4);
+       let result3:any = await conn.promise().query(query3);
+       let result4:any = await conn.promise().query(query4);
     
     
        console.log(result6);
-       result3[0].forEach(e =>{
+       (result3[0]).forEach(e =>{
         if(e.lang === "hindi") hindi.push(e) ;
         if(e.lang === "english") english.push(e);
         if(e.lang === "gujarati") gujarati.push(e);
@@ -189,7 +194,7 @@ exports.updateStep = async (req,res)=>{
     }
 }
 
-exports.saveStepupdate = async (req,res)=>{
+export const saveStepupdate = async (req : Request,res : Response)=>{
     try {
         let empid = req.body.id ;
 
@@ -323,7 +328,7 @@ exports.saveStepupdate = async (req,res)=>{
             
             }
          });
-    
+         ajaxform
     } catch (error) {
         console.log(error)
     }

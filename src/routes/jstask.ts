@@ -1,6 +1,6 @@
-const express = require('express');
-const { eventTable, kukuCube, rowColumn, sortingTask, ticTactoe, showPosts, showComments, statesCities, showStates, showCities } = require('../controller/jstask');
-const { isVerified } = require('../middleware/verification');
+import express from 'express';
+import {eventTable, kukuCube, rowColumn, sortingTask, ticTactoe, showPosts, showComments, statesCities, showStates, showCities } from '../controller/jstask'
+import { isVerified } from '../middleware/verification'
 const router = express.Router() ;
 
 router.route('/eventtable').get(isVerified,eventTable)

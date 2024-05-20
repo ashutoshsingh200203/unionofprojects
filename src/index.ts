@@ -1,18 +1,18 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-require('./src/config/connection');
+require('./config/connection');
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const cookieparser = require('cookie-parser');
 require('dotenv').config();
 
 
-const login = require('./src/routes/auth')
-const jstasks = require('./src/routes/jstask')
-const sqltasks = require('./src/routes/sqltasks')
-const formcrud = require('./src/routes/formcrud')
-const ajaxform = require('./src/routes/ajaxform')
+const login = require('./routes/auth')
+const jstasks = require('./routes/jstask')
+const sqltasks = require('./routes/sqltasks')
+const formcrud = require('./routes/formcrud')
+const ajaxform = require('./routes/ajaxform')
 
 app.use(cookieparser())
 app.use(bodyParser.urlencoded({ extended: true }));

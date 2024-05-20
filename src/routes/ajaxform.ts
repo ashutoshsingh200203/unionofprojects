@@ -1,5 +1,5 @@
-const express = require('express');
-const { showStep, stepEmplist, saveStep, updateStep, saveStepupdate } = require('../controller/ajaxform');
+import express from 'express'
+import { showStep, stepEmplist, saveStep, updateStep, saveStepupdate } from '../controller/ajaxform'
 const router = express.Router() ; 
 
 router.route('/').get(showStep)

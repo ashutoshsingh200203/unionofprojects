@@ -1,5 +1,5 @@
-const express = require('express');
-const { openForm, saveForm, empList, doUpdate, saveUpdate } = require('../controller/formcrud');
+import express from 'express'
+import { openForm, saveForm, empList, doUpdate, saveUpdate } from '../controller/formcrud'
 const router = express.Router();
 
 router.route('/').get(openForm)

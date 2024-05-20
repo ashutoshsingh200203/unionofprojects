@@ -1,6 +1,11 @@
-const conn = require("../config/connection");
+import conn from '../config/connection';
+import {Request,Response} from 'express'
 
-exports.openForm = async (req, res) => {
+interface insert {
+    insertId : number 
+}
+
+export const openForm = async (req  : Request, res : Response) => {
     try {
         res.render('jobform');
     } catch (error) {
@@ -8,7 +13,7 @@ exports.openForm = async (req, res) => {
     }
 }
 
-exports.saveForm = async (req, res) => {
+export const saveForm = async (req : Request, res : Response) => {
     try {
         console.log(req.body);
 
@@ -23,7 +28,7 @@ exports.saveForm = async (req, res) => {
 
         let query1 = `insert into basic_details2 (fname,lname,designation,email,phone_number,address_1,address_2,city,state,zipcode,relationship,gender) values (?,?,?,?,?,?,?,?,?,?,?,?)`
         let basic = await conn.promise().query(query1, [fname, lname, designation, email, phone, address1, address2, city, state, zipcode, relationship, gender]);
-        let insertedId = basic[0].insertId;
+        let insertedId = (basic[0] as insert).insertId;
 
         let query = `insert into edu2 (empid,education,year,percentage) values (?,?,?,?)`
         for (let i = 0; i < education.length; i++) {
@@ -121,7 +126,7 @@ exports.saveForm = async (req, res) => {
     }
 }
 
-exports.empList = async (req, res) => {
+export const empList = async (req : Request, res : Response) => {
     try {
         let query = `select * from basic_details2`
         const empdata = await conn.promise().query(query);
@@ -132,7 +137,7 @@ exports.empList = async (req, res) => {
     }
 }
 
-exports.doUpdate = async (req, res) => {
+export const doUpdate = async (req : Request, res : Response) => {
     try {
         const hindi = [], english = [], gujarati = [];
         const php = [], mysql = [], oracle = [], laravel = []
@@ -152,8 +157,8 @@ exports.doUpdate = async (req, res) => {
         let result2 = await conn.promise().query(query2);
         let result5 = await conn.promise().query(query5);
         let result6 = await conn.promise().query(query6);
-        let result3 = await conn.promise().query(query3);
-        let result4 = await conn.promise().query(query4);
+        let result3 : any = await conn.promise().query(query3);
+        let result4 : any = await conn.promise().query(query4);
 
 
         console.log(result4);
@@ -175,7 +180,7 @@ exports.doUpdate = async (req, res) => {
     }
 }
 
-exports.saveUpdate = async (req, res) => {
+export const saveUpdate = async (req : Request, res : Response) => {
     try {
         let empid = req.body.id;
 

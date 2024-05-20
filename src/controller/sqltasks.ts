@@ -1,8 +1,14 @@
-const conn = require('../config/connection');
+import conn from '../config/connection'
+import {Request, Response} from 'express'
 
-exports.studentData = async (req, res) => {
+interface Len {
+    length : number
+}
+
+export const studentData = async (req : Request, res : Response ) => {
     try {
-        let l = req.query.page || 1;
+        let page  = req.query.page as string | undefined ;
+        let l :number = page ? parseInt(page,10) : 1 ;
         if (l > 500) {
             l = 500;
         }
@@ -27,13 +33,14 @@ exports.studentData = async (req, res) => {
     }
 }
 
-exports.attendanceGrid = async (req, res) => {
+export const attendanceGrid = async (req: Request, res : Response ) => {
     try {
-        let l = req.query.page || 1;
+        let page  = req.query.page as string | undefined ;
+        let l :number = page ? parseInt(page,10) : 1 ;
         if (l > 4) {
             l = 4;
         }
-        let mon = req.query.month || "december2023";
+        let mon  = req.query.month || "december2023";
         let newmon = mon.slice(0, -4);
         // let saal = req.query.year ;
         let offset = (Number(l) - 1) * 50;
@@ -51,9 +58,10 @@ exports.attendanceGrid = async (req, res) => {
     }
 }
 
-exports.examData = async (req, res) => {
+export const examData = async (req: Request, res : Response ) => {
     try {
-        let l = req.query.page || 1;
+        let page  = req.query.page as string | undefined ;
+        let l :number = page ? parseInt(page,10) : 1 ;
         if (l > 7) {
             l = 7;
         }
@@ -75,7 +83,7 @@ exports.examData = async (req, res) => {
     }
 }
 
-exports.fullProfile = async (req, res) => {
+export const fullProfile = async (req: Request, res : Response ) => {
     try {
 
         let studid = req.query.id;
@@ -98,12 +106,13 @@ exports.fullProfile = async (req, res) => {
     }
 }
 
-exports.dynamicQuery = async (req, res) => {
+export const dynamicQuery = async (req: Request, res : Response ) => {
     try {
         let result = [];
 
         if (req.query.sqlinput) {
-            let l = req.query.page || 1;
+            let page  = req.query.page as string | undefined ;
+            let l :number = page ? parseInt(page,10) : 1 ;
             let offset = (Number(l) - 1) * 10;
             let sql2 = req.query.sqlinput;
             let sql = sql2 + ` limit 20 offset ${offset}`;
@@ -111,8 +120,6 @@ exports.dynamicQuery = async (req, res) => {
                 if (err) { console.log(err); }
                 else {
                     let pages = Math.ceil((result2.length) / 10);
-                    console.log(result2.length);
-                    console.log(pages);
                     conn.query(sql, (err, result) => {
                         if (err) {
                             res.render('showerror', {error : err})
@@ -133,13 +140,14 @@ exports.dynamicQuery = async (req, res) => {
     }
 }
 
-exports.orderbyUi = async (req, res) => {
+export const orderbyUi = async (req: Request, res : Response ) => {
     try {
-        let l = req.query.page || 1;
+        let page  = req.query.page as string | undefined ;
+        let l :number = page ? parseInt(page,10) : 1 ;
         if (l > 500) {
             l = 500;
         }
-        let sort = req.query.sort || "asc";
+        let sort : string= req.query.sort as string || "asc";
         let column = req.query.column || "id";
         let offset = (Number(l) - 1) * 100;
 
@@ -167,9 +175,10 @@ exports.orderbyUi = async (req, res) => {
     }
 }
 
-exports.advancedSearch = async (req, res) => {
+export const advancedSearch = async (req: Request, res : Response ) => {
     try {
-        let l = req.query.page || 1;
+        let page  = req.query.page as string | undefined ;
+        let l :number = page ? parseInt(page,10) : 1 ;
         let searchby = req.query.searchby;
         let fname = req.query.fname;
         let lname = req.query.lname;
@@ -217,7 +226,7 @@ exports.advancedSearch = async (req, res) => {
     }
 }
 
-exports.delimeterSearch = async (req, res) => {
+export const delimeterSearch = async (req: Request, res : Response ) => {
     try {
         let delimeter2 = req.query.delimeter;
         let delimeter = req.query.delimeter + "$";
@@ -262,27 +271,27 @@ exports.delimeterSearch = async (req, res) => {
         //    console.log(fname);
 
         if (fname.length > 0) {
-            let name = fname.join(" OR ");
+            let name = "(" + fname.join(" OR ") + ")";
             sql.push(name)
         }
         if (lname.length > 0) {
-            let name = lname.join(" OR ")
+            let name = "(" + lname.join(" OR ") + ")"
             sql.push(name)
         }
         if (dep.length > 0) {
-            let name = dep.join(" OR ")
+            let name = "(" + dep.join(" OR ")  + ")"
             sql.push(name)
         }
         if (age.length > 0) {
-            let name = age.join(" OR ")
+            let name = "(" + age.join(" OR ") + ")"
             sql.push(name)
         }
         if (phone.length > 0) {
-            let name = phone.join(" OR ")
+            let name = "(" + phone.join(" OR ") + ")"
             sql.push(name)
         }
         if (state.length > 0) {
-            let name = state.join(" OR ")
+            let name = "(" + state.join(" OR ") + ")"
             sql.push(name)
         }
         let sql2 = "";

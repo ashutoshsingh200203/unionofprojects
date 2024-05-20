@@ -1,6 +1,6 @@
-const express = require('express');
-const { showForgot,showRegister,saveRegister,saveForgot,savePassword,showLogin,doGenerate,doLogout,saveLogin,createPassword,goHome } = require('../controller/auth');
-const { isVerified } = require('../middleware/verification');
+import express from 'express'
+import { showForgot,showRegister,saveRegister,saveForgot,savePassword,showLogin,doGenerate,doLogout,saveLogin,createPassword,goHome } from '../controller/auth'
+import { isVerified } from '../middleware/verification'
 const router = express.Router() ;
 
 router.route('/').get(showRegister)

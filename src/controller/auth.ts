@@ -1,9 +1,20 @@
-const conn = require("../config/connection");
-const md5 = require('md5');
-const jwt = require('jsonwebtoken');
+import {Request,Response} from 'express' ;
+import conn from '../config/connection'
+import md5 from 'md5';
+// const md5 = require('md5');
+import jwt from 'jsonwebtoken'
+// const jwt = require('jsonwebtoken');
+// import {isVerified} from '../middleware/verification'
 const { isVerified } = require("../middleware/verification");
 
-exports.showRegister = async (req, res) => {
+interface Insert {
+    insertId : number
+}
+interface Len {
+    length : number
+}
+
+export const showRegister = async (req : Request, res : Response) => {
     try {
         console.log(req.cookies)
         if (req.cookies.token) res.render('home')
@@ -13,7 +24,7 @@ exports.showRegister = async (req, res) => {
     }
 }
 
-exports.saveRegister = async (req, res) => {
+export const saveRegister = async (req : Request, res : Response) => {
     try {
         console.log(req.body)
         let { fname, lname, email } = req.body;
@@ -36,7 +47,7 @@ exports.saveRegister = async (req, res) => {
 
         let query = `insert into users (fname,lname,email,salt,accesskey) values (?,?,?,?,?)`
         let result = await conn.promise().query(query, [fname, lname, email, salt, accesskey])
-        let insertedId = result[0].insertId;
+        let insertedId = (result[0] as Insert).insertId;
 
         res.status(200).json({ insertedId, accesskey, salt })
     } catch (error) {
@@ -44,7 +55,7 @@ exports.saveRegister = async (req, res) => {
     }
 }
 
-exports.createPassword = async (req, res) => {
+export const createPassword = async (req : Request, res : Response) => {
 
     try {
         let insertedId = req.query.id;
@@ -68,7 +79,7 @@ exports.createPassword = async (req, res) => {
     }
 }
 
-exports.savePassword = async (req, res) => {
+export const savePassword = async (req : Request, res : Response) => {
     try {
 
         let { pass, cpass, salt, id } = req.body;
@@ -84,7 +95,7 @@ exports.savePassword = async (req, res) => {
     }
 }
 
-exports.showLogin = async (req, res) => {
+export const showLogin = async (req : Request, res : Response) => {
     try {
         res.render('login')
     } catch (error) {
@@ -92,14 +103,14 @@ exports.showLogin = async (req, res) => {
     }
 }
 
-exports.saveLogin = async (req, res) => {
+export const saveLogin = async (req : Request, res : Response) => {
     try {
         let { loginmail, loginpass } = req.body;
         let query = `select * from users where email = '${loginmail}'`
         let result = await conn.promise().query(query);
         // console.log(result) ;
 
-        if (result[0].length === 0) res.json({ msg: 'Invalid username or password' })
+        if ((result[0] as Len).length === 0) res.json({ msg: 'Invalid username or password' })
 
         let decrypt = md5(`${loginpass}${result[0][0].salt}`)
         console.log(`${loginpass}${result[0][0].salt}`)
@@ -123,7 +134,7 @@ exports.saveLogin = async (req, res) => {
     }
 }
 
-exports.showForgot = async (req, res) => {
+export const showForgot = async (req : Request, res : Response) => {
     try {
         res.render('forgot')
     } catch (error) {
@@ -131,13 +142,13 @@ exports.showForgot = async (req, res) => {
     }
 }
 
-exports.saveForgot = async (req, res) => {
+export const saveForgot = async (req : Request, res : Response) => {
     try {
-
+        let {emailId} = req.body ;
         let query = `select * from users where email = '${emailId}'`
         let result = await conn.promise().query(query);
         console.log(result);
-        if (result[0].length !== 0) {
+        if ((result[0] as Len).length !== 0) {
             res.json({ msg: `http://localhost:5900/pass/?id=${result[0][0].uid}&accesskey=${result[0][0].accesskey}&salt=${result[0][0].salt}` })
         }
     } catch (error) {
@@ -145,7 +156,7 @@ exports.saveForgot = async (req, res) => {
     }
 }
 
-exports.doGenerate = async (req, res) => {
+export const doGenerate = async (req : Request, res : Response) => {
     try {
         let { id, accesskey, salt } = req.query;
 
@@ -171,7 +182,7 @@ exports.doGenerate = async (req, res) => {
     }
 }
 
-exports.doLogout = async (req, res) => {
+export const doLogout = async (req : Request, res : Response) => {
     try {
         res.clearCookie('token');
         res.redirect('login');
@@ -180,7 +191,7 @@ exports.doLogout = async (req, res) => {
     }
 }
 
-exports.goHome = async (req, res) => {
+export const goHome = async (req  : Request, res : Response) => {
     try {
         res.render('home')
     } catch (error) {
