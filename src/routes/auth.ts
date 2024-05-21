@@ -13,4 +13,4 @@ router.route('/logout').get(isVerified,doLogout)
 router.route('/generate').get(doGenerate)
 router.route('/home').get(isVerified,goHome)
 
-module.exports = router ;
+export default router ;

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: antiquewhite
+        }
+
+        #scroll{
+            border: 1px solid black;
+            width: 200px;
+            height: 100px;
+            overflow: scroll;
+        }
+
+        td {
+            border: 2px solid black;
+            padding: 20px;
+        }
+
+        table {
+            margin-top: 50px;
+            border-collapse: collapse;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        input {
+
+            background-color: antiquewhite;
+            border-color: black;
+        }
+    </style>
+    <script language="Javascript" type="text/Javascript">
+        function mousefunc()
+        {
+            alert("mouseevent");
+        }
+
+        function func()
+        {
+            alert("HII bruh")
+        }
+        function blurr()
+        {
+            alert("Input field lost focus");
+        }
+        function foc(x)
+        {
+             x.style.background = "yellow";
+        }
+        function change()
+        {
+            var x = document.getElementById("change");
+             x.value = x.value.toUpperCase();
+        }
+        function copy()
+        {
+            alert("Hey scammer you copied the content");
+        }
+        function cut()
+        {
+            alert("Hey scammer you cut the content");
+        }
+        function paste()
+        {
+            alert("i said u earlier don't paste")
+        }
+        function resizefun()
+        {
+            alert("Don't resize windows ")
+        }
+        function inputt()
+        {
+            alert("input is not allowed");
+        }
+        function double()
+        {
+            document.getElementById("double").style.color="blue";
+        }
+        function scroll()
+        {
+            document.getElementById("scroll").style.color="green";
+        }
+    </script>
+</head>
+
+<body onresize="resizefun()">
+    <table>
+        <tr>
+            <td><input type="button" value="mouseover" onmouseover="mousefunc()"></td>
+            <td><input type="button" value="mousedown" onmousedown="mousefunc()"></td>
+            <td><input type="button" value="mouseup" onmouseup="mousefunc()"></td>
+            <td><input type="button" value="mousemove" onmousemove="mousefunc()"></td>
+            <td><input type="button" value="mouseout" onmouseout="mousefunc()"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="keydown" onkeydown="func()"></td>
+            <td><input type="button" value="keyup" onkeyup="func()"></td>
+            <td><input type="button" value="keyupress" onkeypress="func()"></td>
+            <td><input type="text" id="blurrr" onblur="blurr()"></td>
+            <td><input type="button" value="focus" onfocus="foc(this)"></td>
+        </tr>
+        <tr>
+            <td><input type="text" value="change" id="change" onchange="change()"></td>
+            <td><input type="text" value="Some secret" oncopy="copy()"></input></td>
+            <td><input type="text" value="Useful Content" oncut="cut()"></td>
+            <td><input type="text" value="DON'T paste anything" onpaste="paste()"></td>
+            <td><input type="button" value="click" click="mousefunc()"></td>
+        </tr>
+        <tr>
+            <td>
+                <p>Resize the window</p>
+            </td>
+            <td><input type="text" id="inputt" oninput="inputt()"></td>
+            <td><input type="button" value="double click" id="double" ondblclick="double()"></td>
+            <td>
+                <p id="scroll" onscroll="scroll()">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates,
+                    officia beatae! Sapiente pariatur, ut dolore ex sint omnis excepturi
+                    dolorem qui numquam tempora expedita cumque? Sed numquam non inventore recusandae.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

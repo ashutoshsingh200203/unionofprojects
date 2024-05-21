@@ -310,7 +310,6 @@ const saveStepupdate = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 yield connection_1.default.promise().query(query7);
             }
         }));
-        ajaxform;
     }
     catch (error) {
         console.log(error);

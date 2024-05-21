@@ -12,7 +12,7 @@ export const studentData = async (req : Request, res : Response ) => {
         if (l > 500) {
             l = 500;
         }
-        let sort = req.query.sort || "asc";
+        let sort  = req.query.sort  || "asc";
         let column = req.query.column || "id";
         let offset = (Number(l) - 1) * 100;
 
@@ -40,7 +40,7 @@ export const attendanceGrid = async (req: Request, res : Response ) => {
         if (l > 4) {
             l = 4;
         }
-        let mon  = req.query.month || "december2023";
+        let mon  = req.query.month as string || "december2023";
         let newmon = mon.slice(0, -4);
         // let saal = req.query.year ;
         let offset = (Number(l) - 1) * 50;
@@ -114,12 +114,12 @@ export const dynamicQuery = async (req: Request, res : Response ) => {
             let page  = req.query.page as string | undefined ;
             let l :number = page ? parseInt(page,10) : 1 ;
             let offset = (Number(l) - 1) * 10;
-            let sql2 = req.query.sqlinput;
-            let sql = sql2 + ` limit 20 offset ${offset}`;
+            let sql2  = req.query.sqlinput as string;
+            let sql  = sql2 + ` limit 20 offset ${offset}`;
             conn.query(sql2, (err, result2) => {
                 if (err) { console.log(err); }
                 else {
-                    let pages = Math.ceil((result2.length) / 10);
+                    let pages = Math.ceil(((result2 as Len).length) / 10);
                     conn.query(sql, (err, result) => {
                         if (err) {
                             res.render('showerror', {error : err})

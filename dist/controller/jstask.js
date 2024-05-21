@@ -18,7 +18,9 @@ const path_1 = __importDefault(require("path"));
 const connection_1 = __importDefault(require("../config/connection"));
 const eventTable = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.sendFile(path_1.default.join(__dirname, "../../public", "EventTable", "eventtable.html"));
+        let path1 = path_1.default.join(__dirname, "../public", "EventTable", "eventtable.html");
+        console.log(path1);
+        res.sendFile(path1);
     }
     catch (error) {
         console.log(error);
@@ -27,7 +29,7 @@ const eventTable = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.eventTable = eventTable;
 const kukuCube = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.sendFile(path_1.default.join(__dirname, "../../public", "KukuCube", "updatedkukucube.html"));
+        res.sendFile(path_1.default.join(__dirname, "../public", "KukuCube", "updatedkukucube.html"));
     }
     catch (error) {
         console.log(error);
@@ -36,7 +38,7 @@ const kukuCube = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.kukuCube = kukuCube;
 const rowColumn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.sendFile(path_1.default.join(__dirname, "../../public", "RowColumn", "task1feb(row&column).html"));
+        res.sendFile(path_1.default.join(__dirname, "../public", "RowColumn", "task1feb(row&column).html"));
     }
     catch (error) {
         console.log(error);
@@ -45,7 +47,7 @@ const rowColumn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.rowColumn = rowColumn;
 const sortingTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.sendFile(path_1.default.join(__dirname, "../../public", "Sorting", "sorting1.html"));
+        res.sendFile(path_1.default.join(__dirname, "../public", "Sorting", "sorting1.html"));
     }
     catch (error) {
         console.log(error);
@@ -54,7 +56,7 @@ const sortingTask = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 exports.sortingTask = sortingTask;
 const ticTactoe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.sendFile(path_1.default.join(__dirname, "../../public", "TicTacToe", "tictac.html"));
+        res.sendFile(path_1.default.join(__dirname, "../public", "TicTacToe", "tictac.html"));
     }
     catch (error) {
         console.log(error);
@@ -63,7 +65,7 @@ const ticTactoe = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.ticTactoe = ticTactoe;
 const showPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.sendFile(path_1.default.join(__dirname, "../../public", "AsyncAwait", "post.html"));
+        res.sendFile(path_1.default.join(__dirname, "../public", "AsyncAwait", "post.html"));
     }
     catch (error) {
         console.log(error);
@@ -72,7 +74,7 @@ const showPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.showPosts = showPosts;
 const showComments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.sendFile(path_1.default.join(__dirname, "../../public", "AsyncAwait", "personal.html"));
+        res.sendFile(path_1.default.join(__dirname, "../public", "AsyncAwait", "personal.html"));
     }
     catch (error) {
         console.log(error);
@@ -81,7 +83,7 @@ const showComments = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.showComments = showComments;
 const statesCities = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.sendFile(path_1.default.join(__dirname, '../../public', 'StateCities', 'list.html'));
+        res.sendFile(path_1.default.join(__dirname, '../public', 'StateCities', 'list.html'));
     }
     catch (error) {
         console.log(error);

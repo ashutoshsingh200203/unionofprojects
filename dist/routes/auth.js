@@ -16,4 +16,4 @@ router.route('/forgot').get(auth_1.showForgot).post(auth_1.saveForgot);
 router.route('/logout').get(verification_1.isVerified, auth_1.doLogout);
 router.route('/generate').get(auth_1.doGenerate);
 router.route('/home').get(verification_1.isVerified, auth_1.goHome);
-module.exports = router;
+exports.default = router;

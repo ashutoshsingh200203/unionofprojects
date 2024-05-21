@@ -5,7 +5,9 @@ import {Request,Response} from 'express'
 
 export const eventTable = async (req : Request,res : Response) =>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","EventTable","eventtable.html"))
+        let path1 = path.join(__dirname,"../public","EventTable","eventtable.html")
+        console.log(path1)
+        res.sendFile(path1)
     } catch (error) {
         console.log(error)
     }
@@ -13,7 +15,7 @@ export const eventTable = async (req : Request,res : Response) =>{
 
 export const kukuCube = async (req: Request,res : Response) =>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","KukuCube","updatedkukucube.html"))
+        res.sendFile(path.join(__dirname,"../public","KukuCube","updatedkukucube.html"))
     } catch (error) {
         console.log(error)
     }
@@ -21,7 +23,7 @@ export const kukuCube = async (req: Request,res : Response) =>{
 
 export const rowColumn = async (req: Request,res : Response) =>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","RowColumn","task1feb(row&column).html"))
+        res.sendFile(path.join(__dirname,"../public","RowColumn","task1feb(row&column).html"))
     } catch (error) {
         console.log(error)
     }
@@ -29,7 +31,7 @@ export const rowColumn = async (req: Request,res : Response) =>{
 
 export const sortingTask = async (req: Request,res : Response) =>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","Sorting","sorting1.html"))
+        res.sendFile(path.join(__dirname,"../public","Sorting","sorting1.html"))
     } catch (error) {
         console.log(error)
     }
@@ -37,7 +39,7 @@ export const sortingTask = async (req: Request,res : Response) =>{
 
 export const ticTactoe = async (req: Request,res : Response) =>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","TicTacToe","tictac.html"))
+        res.sendFile(path.join(__dirname,"../public","TicTacToe","tictac.html"))
     } catch (error) {
         console.log(error)
     }
@@ -45,7 +47,7 @@ export const ticTactoe = async (req: Request,res : Response) =>{
 
 export const showPosts = async (req: Request,res : Response) => {
     try {
-        res.sendFile(path.join(__dirname,"../../public","AsyncAwait","post.html"))
+        res.sendFile(path.join(__dirname,"../public","AsyncAwait","post.html"))
     } catch (error) {
         console.log(error)
     }
@@ -53,7 +55,7 @@ export const showPosts = async (req: Request,res : Response) => {
 
 export const showComments = async (req: Request,res : Response)=>{
     try {
-        res.sendFile(path.join(__dirname,"../../public","AsyncAwait","personal.html"))
+        res.sendFile(path.join(__dirname,"../public","AsyncAwait","personal.html"))
     } catch (error) {
         console.log(error)
     }
@@ -61,7 +63,7 @@ export const showComments = async (req: Request,res : Response)=>{
 
 export const statesCities = async (req: Request,res : Response)=>{
     try {
-        res.sendFile(path.join(__dirname,'../../public','StateCities','list.html'))
+        res.sendFile(path.join(__dirname,'../public','StateCities','list.html'))
     } catch (error) {
         console.log(error)
     }

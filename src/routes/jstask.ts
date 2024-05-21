@@ -14,4 +14,4 @@ router.route('/statecities').get(isVerified,statesCities)
 router.route('/states').get(isVerified,showStates)
 router.route('/cities/:state_id').get(isVerified,showCities)
 
-module.exports = router ;
+export default router ;

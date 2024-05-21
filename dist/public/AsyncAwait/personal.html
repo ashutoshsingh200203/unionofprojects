@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         body{
+            background-color:beige
+        }
+        tr,td{
+            border: 1px solid black;
+            text-align: center;
+            background-color:blanchedalmond
+        }
+        table {
+            border-collapse: collapse;
+        }
+        #comment
+        {
+            margin-top: 30px;
+        }
+        #combut{
+            margin-top: 20px;
+            font-size: 15px;
+            padding: 9px;
+            background-color: brown;
+            color: aquamarine;
+        }
+        #table{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body onload="personal()">
+    <table id="table">
+
+    </table>
+    <input type="button" value="Show Comment" onclick="comment()" id="combut">
+    <table id="comment">
+
+    </table>
+
+    <script>
+        const personal = async () => {
+            let table = document.getElementById('table')
+            let id = window.location.href.split('/').pop();
+            let data = await fetch(`http://jsonplaceholder.typicode.com/posts/${id}`)
+            let datas = await data.json();
+            // console.log(datas) ;
+            table.innerHTML =
+                `<tr>
+                <td>ID</td>
+                <td>title</td>
+                <td>body</td>
+                <td>UserID</td>
+                  </tr>`
+            table.innerHTML +=
+                `<tr>
+                        <td>${datas.userId}</td>
+                        <td>${datas.id}</td>
+                        <td>${datas.title}</td>
+                        <td>${datas.body}</td>
+                      </tr>`
+
+        }
+
+        const comment = async () => {
+            if (document.getElementById('comment').innerHTML) {
+                document.getElementById('comment').innerHTML = "";
+                document.getElementById('combut').value = "Show Comment"
+
+            }
+            else {
+                let id = window.location.href.split('/').pop();
+                let data = await fetch(`http://jsonplaceholder.typicode.com/comments/?postId=${id}`)
+                let datas = await data.json();
+                console.log(datas);
+                let comment = document.getElementById('comment')
+                datas.map((a) => {
+                    comment.innerHTML += ` <tr>
+                               <td>${a.id}</td>
+                   <td>${a.name}</td>
+                   <td>${a.email}</td>  
+                   <td>${a.body}</td>
+                  </tr>`
+                })
+                document.getElementById('combut').value = "Hide Comment"
+            }
+        }
+    </script>
+</body>
+
+</html>

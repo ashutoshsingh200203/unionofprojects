@@ -11,4 +11,4 @@ router.route('/orderbyui').get(orderbyUi)
 router.route('/advancedsearch').get(advancedSearch)
 router.route('/delimetersearch').get(delimeterSearch)
 
-module.exports = router ;
+export default router ;

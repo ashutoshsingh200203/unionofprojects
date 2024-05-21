@@ -14,4 +14,4 @@ router.route('/dynamicquery').get(sqltasks_1.dynamicQuery);
 router.route('/orderbyui').get(sqltasks_1.orderbyUi);
 router.route('/advancedsearch').get(sqltasks_1.advancedSearch);
 router.route('/delimetersearch').get(sqltasks_1.delimeterSearch);
-module.exports = router;
+exports.default = router;

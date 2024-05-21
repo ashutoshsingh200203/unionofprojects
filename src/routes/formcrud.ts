@@ -9,4 +9,4 @@ router.route('/update-form/:id').get(doUpdate)
 router.route('/save-update').post(saveUpdate)
 
 
-module.exports = router ;
+export default router ;

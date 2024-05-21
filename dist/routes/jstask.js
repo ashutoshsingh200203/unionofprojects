@@ -17,4 +17,4 @@ router.route('/posts/:id').get(verification_1.isVerified, jstask_1.showComments)
 router.route('/statecities').get(verification_1.isVerified, jstask_1.statesCities);
 router.route('/states').get(verification_1.isVerified, jstask_1.showStates);
 router.route('/cities/:state_id').get(verification_1.isVerified, jstask_1.showCities);
-module.exports = router;
+exports.default = router;

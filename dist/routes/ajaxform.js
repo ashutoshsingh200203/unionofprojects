@@ -11,4 +11,4 @@ router.route('/stepemplist').get(ajaxform_1.stepEmplist);
 router.route('/savestep').post(ajaxform_1.saveStep);
 router.route('/updatestep').get(ajaxform_1.updateStep);
 router.route('/savestepupdate').post(ajaxform_1.saveStepupdate);
-module.exports = router;
+exports.default = router;

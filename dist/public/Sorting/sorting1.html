@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algoritms</title>
+    <style>
+        body {
+            background-color: antiquewhite;
+            text-align: center;
+            font-size: 20px;
+            margin-top: 50px;
+        }
+
+        #num1 {
+            width: 250px;
+            height: 40px;
+            border-radius: 10px;
+            margin-top: 60px;
+            border-color: brown;
+            font-size: large;
+        }
+
+        #submit {
+            margin-left: 90px;
+            width: 100px;
+            height: 30px;
+            font-size: 20px;
+            border-color: aqua;
+            background-color: darkslategray;
+            color: wheat;
+        }
+       .sorts{
+        margin-top: 60px;
+        margin-right: 150px;
+       }
+       #bubble, #insertion ,#selection{
+        width: 120px;
+        height: 50px;
+        margin-left: 50px;
+        font-size: 15px;
+        border: 2px solid rgb(48, 72, 92);
+        border-radius: 5px;
+       }
+    </style>
+</head>
+
+<body onload="load()">
+    <div class="container">
+
+        <form>
+            <p>Insert the values as much you want by placing (,) between the digits.</p>
+            <p id="ipvalues"></p>
+            <input type="text" id="num1" name="num1">
+            <input type="button" id="submit" value="submit" onclick="values()">
+            <div class="sorts">
+                <input type="button" id="bubble" value="Bubble Sort" name="bubble" onclick="bubblesort()">
+                <input type="button" id="insertion" value="Insertion Sort" name="insertion" onclick="insertionsort()">
+                <input type="button" id="selection" value="Selection Sort" name="selection" onclick="selectionsort()">
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+        var ele = [];
+        function values() {
+            let elements = document.getElementById("num1").value;
+            const myarray = elements.split(",");
+            console.log(myarray);
+            for (let i = 0; i < myarray.length; i++) {
+                ele.push(parseInt(myarray[i]));
+            }
+            console.log(ele);
+
+        }
+      function load()
+      {
+        document.getElementById("num1").value = ""
+      }
+        function bubblesort() {
+            console.log(ele);
+            for (let i = 0; i < ele.length; i++) {
+                for (let j = 0; j < ele.length - i - 1; j++) {
+                    if (ele[j] > ele[j + 1]) {
+                        let temp = ele[j];
+                        ele[j] = ele[j + 1];
+                        ele[j + 1] = temp;
+                    }
+                }
+            }
+            console.log(ele);
+            document.getElementById("ipvalues").innerHTML = "Sorted values using Bubble sort are " + ele;
+        }
+
+
+        function insertionsort() {
+            let len = ele.length;
+
+            for (let i = 1; i < len; i++) {
+                let key = ele[i];
+                j = i - 1;
+
+                while (j >= 0 && ele[j] > key) {
+                    ele[j + 1] = ele[j];
+                    j--;
+                }
+                ele[j + 1] = key;
+            }
+            document.getElementById("ipvalues").innerHTML = "Sorted values using Insertion sort are " + ele;
+        }
+
+
+        function selectionsort() {
+            let len = ele.length;
+
+            for (let i = 0; i < len - 1; i++) {
+                let min = i;
+
+                for (let j = i + 1; j < len; j++) {
+                    if (ele[min] > ele[j])
+                        min = j;
+                }
+                let temp = ele[min];
+                ele[min] = ele[i];
+                ele[i] = temp;
+
+            }
+            document.getElementById("ipvalues").innerHTML = "Sorted values using Selection sort are " + ele;
+        }
+
+        // const ele = [12, 15, 32, 119 ,225 , 19, 20];
+        // selectionsort(ele);
+        // console.log(ele);
+
+    </script>
+</body>
+
+</html>

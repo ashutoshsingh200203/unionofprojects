@@ -110,7 +110,8 @@ const dynamicQuery = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         let result = [];
         if (req.query.sqlinput) {
-            let l = req.query.page || 1;
+            let page = req.query.page;
+            let l = page ? parseInt(page, 10) : 1;
             let offset = (Number(l) - 1) * 10;
             let sql2 = req.query.sqlinput;
             let sql = sql2 + ` limit 20 offset ${offset}`;

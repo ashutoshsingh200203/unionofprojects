@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        td {
+            border: 2px solid black;
+            padding: 10px;
+            width: 50px;
+            height: 40px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 50px;
+            margin-left: 300px;
+        }
+        input{
+            margin-bottom: 20px;
+            margin-right: 20px;
+            padding: 20px;
+        }
+        tr:nth-of-type(odd) td:nth-of-type(odd),tr:nth-of-type(even) td:nth-of-type(even){
+            background-color: grey;
+        }
+        tr:nth-of-type(odd) td:nth-of-type(even),tr:nth-of-type(even) td:nth-of-type(odd){
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h2>Ashutoshsingh Tomar 24DEV089</h2>
+    <div id="colbut">
+        <p>For Column</p>
+        <input type="button" class="column" value="+" onclick="addcolumn()">
+        <input type="button" class="column" value="-" onclick="subtractcolumn()">
+    </div>
+
+    <div>
+        <p>For Row</p>
+        <input type="button" class="row" value="+" onclick="addrow()">
+        <input type="button" class="row" value="-" onclick="subtractrow()">
+    </div>
+
+    <table id="new-table">
+        <tr id="hello">
+            <td></td>
+            <td></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <script>
+        function addcolumn() {
+            table = document.getElementById("new-table");
+            rowcount = table.getElementsByTagName("tr");
+            console.log(rowcount)
+            for (let i = 0; i < rowcount.length; i++) {
+
+                rowcount[i].appendChild(document.createElement("td"));
+            }
+        }
+        function addrow() {
+            table = document.getElementsByTagName("table");
+            row = table[0].getElementsByTagName("tr");
+            td = row[0].getElementsByTagName("td");
+            table[0].appendChild(document.createElement("tr"));
+            for (i = 0; i < td.length; i++) {
+                table[0].lastChild.appendChild(document.createElement("td"));
+            }
+        }
+        function subtractcolumn() {
+            table = document.getElementsByTagName("table");
+            console.log(table);
+            row = table[0].getElementsByTagName("tr");
+
+
+            for (i = 0; i < row.length; i++) {
+
+                if (table[0].getElementsByTagName("td").length === 4) break;
+
+                row[i].removeChild(row[i].lastChild)
+            }
+
+        }
+        function subtractrow() {
+            table = document.getElementsByTagName("table");
+            row = table[0].getElementsByTagName('tr');
+            if(row.length>2)
+            table[0].removeChild(table[0].lastChild)
+
+        }
+    </script>
+
+</body>
+
+</html>
